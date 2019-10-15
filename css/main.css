@@ -403,7 +403,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid #ddd;
+  border: 5px solid #ddd;
   font-size: 14px;
   table-layout: fixed;
   word-wrap: break-all;
@@ -1830,7 +1830,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ec466a;
+  background: #789f1f;
 }
 .links-of-blogroll {
   font-size: 13px;
