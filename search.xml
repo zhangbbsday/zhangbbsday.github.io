@@ -127,21 +127,21 @@
 <p>注意序号和内容之间的空格。</p>
 </blockquote>
 <p>列表还可以嵌套。<br><strong>示例三</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XX游戏更新内容如下：</span><br><span class="line">+ 2019.8</span><br><span class="line">    + 增加了新的角色；</span><br><span class="line">    + 修改了部分数值；</span><br><span class="line">    + 修复了些许的BUG；</span><br><span class="line">+ 2019.9</span><br><span class="line">    + 加入新的敌人。</span><br><span class="line">    + 优化游戏运行速度。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XX游戏更新内容如下：</span><br><span class="line">+ 2019.8</span><br><span class="line">    1. 增加了新的角色；</span><br><span class="line">    2. 修改了部分数值；</span><br><span class="line">    3. 修复了些许的BUG；</span><br><span class="line">+ 2019.9</span><br><span class="line">    1. 加入新的敌人。</span><br><span class="line">    2. 优化游戏运行速度。</span><br></pre></td></tr></table></figure>
 
 <p><strong>输出三</strong>：</p>
 <p>XX游戏更新内容如下：</p>
 <ul>
-<li>2019.8<ul>
+<li>2019.8<ol>
 <li>增加了新的角色；</li>
 <li>修改了部分数值；</li>
 <li>修复了些许的BUG；</li>
-</ul>
+</ol>
 </li>
-<li>2019.9<ul>
+<li>2019.9<ol>
 <li>加入新的敌人。</li>
 <li>优化游戏运行速度。</li>
-</ul>
+</ol>
 </li>
 </ul>
 <h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>MarkDown可以比较方便的编写简单表格。<del>其实我没怎么用过。</del><br><strong>示例</strong>：</p>
