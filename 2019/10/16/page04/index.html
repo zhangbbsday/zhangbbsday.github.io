@@ -56,19 +56,22 @@
   };
 </script>
 
-  <meta name="description" content="所谓的杀手，真的不需要感情吗……">
-<meta name="keywords" content="小说">
+  <meta name="description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
+<meta name="keywords" content="命令行,git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="杀手">
-<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/16/page03/index.html">
+<meta property="og:title" content="git常用命令">
+<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/16/page04/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="所谓的杀手，真的不需要感情吗……">
+<meta property="og:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-16T04:47:44.317Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png">
+<meta property="og:updated_time" content="2019-10-16T12:21:02.141Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="杀手">
-<meta name="twitter:description" content="所谓的杀手，真的不需要感情吗……">
-  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/16/page03/">
+<meta name="twitter:title" content="git常用命令">
+<meta name="twitter:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
+  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/16/page04/">
 
 
 <script id="page-configurations">
@@ -82,7 +85,7 @@
   };
 </script>
 
-  <title>杀手 | The World</title>
+  <title>git常用命令 | The World</title>
   
 
 
@@ -269,7 +272,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/page03/">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/page04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="火提昂">
@@ -283,7 +286,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            杀手
+            git常用命令
             
 
           
@@ -300,7 +303,7 @@
                 
               
 
-              <time title="创建时间：2019-10-16 12:35:47 / 修改时间：12:47:44" itemprop="dateCreated datePublished" datetime="2019-10-16T12:35:47+08:00">2019-10-16</time>
+              <time title="创建时间：2019-10-16 16:43:58 / 修改时间：20:21:02" itemprop="dateCreated datePublished" datetime="2019-10-16T16:43:58+08:00">2019-10-16</time>
             </span>
           
             
@@ -314,8 +317,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/随便写写/" itemprop="url" rel="index">
-                    <span itemprop="name">随便写写</span>
+                  <a href="/categories/命令行/" itemprop="url" rel="index">
+                    <span itemprop="name">命令行</span>
                   </a>
                 </span>
 
@@ -334,7 +337,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>2k</span>
+              <span>1k</span>
             </span>
           
 
@@ -348,68 +351,68 @@
 
       
         <hr>
-<p>所谓的杀手，真的不需要感情吗……</p>
+<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
 <hr>
 <a id="more"></a>
 
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>声明：</p>
+<p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
+</blockquote>
+<h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
+<p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
+<p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<ul>
-<li>游戏之作，自娱自乐。</li>
-<li>如有雷同，纯属巧合。</li>
-<li>如果侵权，及时联系，马上删除。</li>
-</ul>
+<p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
 </blockquote>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要在主分支中使用此命令。</p>
 </blockquote>
-<p>“砰！”</p>
-<p>伴随着一声枪响，一个男子倒在血泊中。</p>
-<p>在这人身旁，少年默默收回了手枪。他面容清秀，能在脸上看到些许的稚嫩。</p>
-<p>他蹲下身，紧了紧右手手套，向那男子衣服中伸去。摸索片刻后，他的脸上露出了迷惑的表情。</p>
-<p>“……没有，为什么？”少年的声音很轻，没有变声期那种沙哑，反而有着鸟鸣般的清脆。</p>
-<p>他抽出手，缓缓起身。就在此刻，他的双耳突然抖动了两下。</p>
-<p>一阵细微的声响被他捕获，那是鞋子摩擦水泥地面的声音。</p>
-<p>他转过身，面向房门外。在昏暗的远方，一个人影浮现在他眼中。</p>
-<p>那是一个高大的男子，从头到脚，他的全身都被黑色覆盖。甚至连脸上，都蒙上了一层黑色的面罩。</p>
-<p>少年没有动，就只是看着他不断的逼近。</p>
-<p>鞋子摩擦地面的声音停止了。高大男子站在少年前方二三十米处，左手中不知何时已经握上了一把枪。</p>
-<p>“我……是被抛弃了吗？”少年开口了，那只能给无数人带来恐惧的手枪竟是丝毫没有影响到他。</p>
-<p>高大男子没有说话。他转了一圈左手中的手枪，他猛然抬起手，瞄准少年扣下了扳机。</p>
-<p>“砰”的一声，一颗子弹呼啸而过，直接贯穿了少年的肩膀。</p>
-<p>少年吃痛的叫了一声，脸上变得有些苍白。一把手枪从他右手处滑落，在地面上发出一声哀嚎。</p>
-<p>高大男子摇了摇头，终于开口道：“为什么不还击？”他的声音无比嘶哑，堪比金属摩擦之声。</p>
-<p>“我做不到。”少年左手摁着伤口，但血流还是如同小溪般沿着衣服流下。</p>
-<p>“愚蠢。”男子嗤笑一声，给手枪再次上膛，“得亏老子调教你五年，还是有这般幼稚的想法。”</p>
-<p>他再度瞄准，枪口遥指少年头颅，“记住，我们杀手，是不需要感情的。”话音刚落，他便扣动了扳机。</p>
-<p>少年瞳孔一缩，看着那不断逼近的子弹，身体竟是不自主的向一旁偏去。</p>
-<p>子弹擦着他的太阳穴而过，他顺势倒在地上，没了声响。</p>
-<p>高大男子静立了片刻，微不可查的点了下头。他收回那把冒着青烟的手枪，嘶哑的声音响起：“他已经死了。”</p>
-<p>拍手声响起。在他身后，一位身着白衣，留着白色长发的男子一边鼓掌，一边微笑道：“不愧是老板的得力干将‘孤狼’，就算是跟了自己五年之久的弟子，动起手来也是没有丝毫犹豫。”</p>
-<p>见孤狼没有回应的打算，这白发男子依旧微笑道：“不过孤狼啊，老板可是要让我亲眼见证‘白鹿’的死亡，所以他的身体，我也不得不仔细地瞧瞧了。”</p>
-<p>“你怀疑我没有杀了他？”孤狼嘶哑的声音响起。尽管有着面罩的遮挡，但白发男子还是感受到了一双透着凶光的眼睛。</p>
-<p>“哎呀呀，被‘狼’盯着，我可是浑身都不自在啊。”他口称不自在，但脸上的笑容依旧，“我可不会质疑你的实力，但……说不定呢？”</p>
-<p>他拨开刘海，大步向前走去，“这世间有太多不可能，我可不敢将老板的命令放在虚无缥缈的运气上。”</p>
-<p>盯着他的后背，孤狼左手按在了枪柄上。</p>
-<p>二三十米的距离，白发男子不过走了十秒左右。他俯视着倒在地上的白鹿，笑着对身后的人道：“孤狼，可不要让我们失望啊。”</p>
-<p>就在此时，躺在地上的白鹿突然睁开双眼，猛地伸手拉住白发男子的腿。与其身材不符的力量，直接让后者一个踉跄，跪倒在地上，白色的长发瞬间变得凌乱。</p>
-<p>紧接着便是一声枪响，黄色子弹从白发男子右手臂穿过，竟是刚好没有碰到白鹿的衣服。</p>
-<p>白发男子叹息一声，刚想有动作，便感觉太阳穴处传来的丝丝寒意。白鹿的手枪，此时正抵在他的命门上。</p>
-<p>“不要动。”白鹿的声音有点喘，负伤作战还是给他带来了不少影响。</p>
-<p>“哎……”身上仿佛流的不是自己的血，那白发男子竟是依旧挂着微笑，“你们啊，一个个的，为什么都走上这个道路了呢……”</p>
-<p>孤狼靠了过来，他瞥了眼白鹿，从兜里扔出一个药瓶，“吃了吧。”</p>
-<p>“哦。”白鹿应了一声，熟练地服下了两颗药片。</p>
-<p>“你们应该明白的，离开了我们就是死路一条。”白发男子看见这一幕，笑着说道，“这一次挺过去了，那么下一次呢，下下一次呢？”</p>
-<p>“你们会生不如死的。”他的声音依旧平稳，丝毫没有负伤者应有的状态。</p>
-<p>“总比你这种状态好吧。”白鹿的脸色由苍白转向红润，他的双眼变得更加的明亮，“至少，我有痛觉。”</p>
-<p>“痛觉？无用的东西。”白发男子笑了笑，“你这种异端就是我们的污点。”</p>
-<p>白鹿撇了撇嘴，看向沉默的孤狼道：“师傅，这家伙该怎么办，杀掉吗？”</p>
-<p>没等孤狼回答，白发男子又笑道：“孤狼啊孤狼，现在你还有机会，杀了白鹿，你依旧是我们的朋友。”</p>
-<p>“朋友？奴隶还差不多。”孤狼哼了一声，“杀了吧。”</p>
-<p>“嗯。”白鹿扣动扳机，直接将白发男子的头打爆。</p>
-<p>拍了拍身子，白鹿站起来，仰着头看着孤狼问道：“师傅，异端是什么意思？”</p>
-<p>“凡是不符合那人心意的，就是异端。”孤狼嘿了一声。他踏过无头尸体，走向房间内那倒在血泊里的男子。</p>
-<p>“是他吗……”孤狼面罩下的双眼微微眯起，“竟然舍得用这家伙做诱饵，看来那人对‘零’很是重视啊……”</p>
-<p>他转过身，看着那包扎伤口的白鹿，自言自语道：“你可是托付给我了一个大麻烦啊，前辈。”</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
+<ol>
+<li>克隆远程仓库(<code>$ git clone</code>)。</li>
+<li>文件操作。</li>
+<li>添加/更新修改过的文件到仓库中(<code>$ git add</code>)。</li>
+<li>提交修改(<code>$ git commit -m</code>)。</li>
+<li>上传(<code>$ git push</code>)。</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>git的命令远远不止这些，有些更加高级的用法会在今后学习。</p>
 <hr>
 
     </div>
@@ -438,7 +441,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://zhangbbsday.github.io/2019/10/16/page03/" title="杀手">http://zhangbbsday.github.io/2019/10/16/page03/</a>
+    <a href="http://zhangbbsday.github.io/2019/10/16/page04/" title="git常用命令">http://zhangbbsday.github.io/2019/10/16/page04/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -454,7 +457,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/小说/" rel="tag"># 小说</a>
+              <a href="/tags/命令行/" rel="tag"># 命令行</a>
+            
+              <a href="/tags/git/" rel="tag"># git</a>
             
           </div>
         
@@ -464,8 +469,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/15/page02/" rel="next" title="MarkDown常用内容">
-                  <i class="fa fa-chevron-left"></i> MarkDown常用内容
+                <a href="/2019/10/16/page03/" rel="next" title="杀手">
+                  <i class="fa fa-chevron-left"></i> 杀手
                 </a>
               
             </div>
@@ -473,10 +478,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/16/page04/" rel="prev" title="git常用命令">
-                  git常用命令 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -522,6 +523,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用指令"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆"><span class="nav-number">1.1.</span> <span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-更新"><span class="nav-number">1.2.</span> <span class="nav-text">添加/更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.3.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态"><span class="nav-number">1.4.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">1.5.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">1.6.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">1.6.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.6.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.6.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">1.6.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">1.6.5.</span> <span class="nav-text">合并分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">1.7.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用流程"><span class="nav-number">2.</span> <span class="nav-text">常用流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
