@@ -72,8 +72,8 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>命令行</tag>
         <tag>git</tag>
+        <tag>命令行</tag>
       </tags>
   </entry>
   <entry>
@@ -363,8 +363,8 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>命令行</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
