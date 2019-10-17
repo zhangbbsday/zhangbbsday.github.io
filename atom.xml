@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangbbsday.github.io/"/>
-  <updated>2019-10-16T12:21:02.141Z</updated>
+  <updated>2019-10-17T15:14:54.986Z</updated>
   <id>http://zhangbbsday.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C#中的ref和out</title>
+    <link href="http://zhangbbsday.github.io/2019/10/17/page05/"/>
+    <id>http://zhangbbsday.github.io/2019/10/17/page05/</id>
+    <published>2019-10-17T14:19:51.000Z</published>
+    <updated>2019-10-17T15:14:54.986Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p><hr><a id="more"></a><h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>我们可以考虑这样一种情况。<br>在某次项目中，我们需要实现一个<code>Swap(int a, int b)</code>方法，用来交换两个整形变量的值。很显然，该方法必须有如下一种实现：</p><ol><li>一次返回两个值。</li><li>直接修改两个变量。</li></ol><p>而我们知道，一般情况下，一个方法只能返回一个值。这种情况下，就需要用到<code>ref</code>了。<br>使用<code>ref</code>可以实现第二种方法，它会传递变量的引用给方法。<br>可以写出如下代码：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span> a, <span class="keyword">ref</span> <span class="keyword">int</span> b</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在<code>Main</code>函数中调用：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    Swap(<span class="keyword">ref</span> a, <span class="keyword">ref</span> b);</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = 4, b = 3</span><br><span class="line">a = 3, b = 4</span><br></pre></td></tr></table></figure><p>在调用方法时，实参也要带<code>ref</code>关键字，且所传递的变量必须初始化。</p><h1 id="out"><a href="#out" class="headerlink" title="out"></a>out</h1><p>在上文中，我们提及了两种实现交换的方法，而<code>out</code>可以实现第一种方法。<br>可以改写<code>Swap</code>函数为：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">out</span> <span class="keyword">int</span> c</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>改写<code>Main</code>函数为：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其输出结果和使用<code>ref</code>输出相同。<br>在调用方法时，实参也要带<code>out</code>关键字，且所传递的变量必须在方法内初始化。</p><blockquote><p>在C#7.0以后可以在参数列表中声明<code>out</code>变量。7.0前必须在调用方法前先声明所需变量。</p></blockquote><h1 id="代替"><a href="#代替" class="headerlink" title="代替"></a>代替</h1><p>在C#7.0以后，可以用元组代替上述两个关键字。元组不仅更加便于理解，而且可读性比之后两者有了显著性的提高。<br>在需要返回多个值时，推荐优先考虑元组的实现。</p><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字&lt;code&gt;ref&lt;/code&gt; &lt;code&gt;out&lt;/code&gt;的使用。&lt;br&gt;在C#7.0以后，可以用更加方便的元组代替二者。&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://zhangbbsday.github.io/categories/C/"/>
+    
+    
+      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>git常用命令</title>
@@ -37,9 +62,9 @@
       <category term="命令行" scheme="http://zhangbbsday.github.io/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
     
-      <category term="git" scheme="http://zhangbbsday.github.io/tags/git/"/>
-    
       <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+      <category term="git" scheme="http://zhangbbsday.github.io/tags/git/"/>
     
   </entry>
   
@@ -114,9 +139,9 @@
       <category term="命令行" scheme="http://zhangbbsday.github.io/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
     
-      <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
-    
       <category term="hexo" scheme="http://zhangbbsday.github.io/tags/hexo/"/>
+    
+      <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
   </entry>
   
