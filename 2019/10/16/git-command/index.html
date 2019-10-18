@@ -56,19 +56,22 @@
   };
 </script>
 
-  <meta name="description" content="终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字ref out的使用。在C#7.0以后，可以用更加方便的元组代替二者。">
-<meta name="keywords" content="C#">
+  <meta name="description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
+<meta name="keywords" content="git,命令行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C#中的ref和out">
-<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/17/page05/index.html">
+<meta property="og:title" content="git常用命令">
+<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/16/git-command/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字ref out的使用。在C#7.0以后，可以用更加方便的元组代替二者。">
+<meta property="og:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-17T15:14:54.986Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png">
+<meta property="og:updated_time" content="2019-10-16T12:21:02.141Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C#中的ref和out">
-<meta name="twitter:description" content="终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字ref out的使用。在C#7.0以后，可以用更加方便的元组代替二者。">
-  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/17/page05/">
+<meta name="twitter:title" content="git常用命令">
+<meta name="twitter:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
+  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/16/git-command/">
 
 
 <script id="page-configurations">
@@ -82,7 +85,7 @@
   };
 </script>
 
-  <title>C#中的ref和out | The World</title>
+  <title>git常用命令 | The World</title>
   
 
 
@@ -278,7 +281,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/17/page05/">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/git-command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="火提昂">
@@ -292,7 +295,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            C#中的ref和out
+            git常用命令
             
 
           
@@ -309,7 +312,7 @@
                 
               
 
-              <time title="创建时间：2019-10-17 22:19:51 / 修改时间：23:14:54" itemprop="dateCreated datePublished" datetime="2019-10-17T22:19:51+08:00">2019-10-17</time>
+              <time title="创建时间：2019-10-16 16:43:58 / 修改时间：20:21:02" itemprop="dateCreated datePublished" datetime="2019-10-16T16:43:58+08:00">2019-10-16</time>
             </span>
           
             
@@ -323,8 +326,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C#</span>
+                  <a href="/categories/命令行/" itemprop="url" rel="index">
+                    <span itemprop="name">命令行</span>
                   </a>
                 </span>
 
@@ -357,36 +360,68 @@
 
       
         <hr>
-<p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
+<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
 <hr>
 <a id="more"></a>
 
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>我们可以考虑这样一种情况。<br>在某次项目中，我们需要实现一个<code>Swap(int a, int b)</code>方法，用来交换两个整形变量的值。很显然，该方法必须有如下一种实现：</p>
-<ol>
-<li>一次返回两个值。</li>
-<li>直接修改两个变量。</li>
-</ol>
-<p>而我们知道，一般情况下，一个方法只能返回一个值。这种情况下，就需要用到<code>ref</code>了。<br>使用<code>ref</code>可以实现第二种方法，它会传递变量的引用给方法。<br>可以写出如下代码：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span> a, <span class="keyword">ref</span> <span class="keyword">int</span> b</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
 
-<p>在<code>Main</code>函数中调用：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    Swap(<span class="keyword">ref</span> a, <span class="keyword">ref</span> b);</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = 4, b = 3</span><br><span class="line">a = 3, b = 4</span><br></pre></td></tr></table></figure>
-
-<p>在调用方法时，实参也要带<code>ref</code>关键字，且所传递的变量必须初始化。</p>
-<h1 id="out"><a href="#out" class="headerlink" title="out"></a>out</h1><p>在上文中，我们提及了两种实现交换的方法，而<code>out</code>可以实现第一种方法。<br>可以改写<code>Swap</code>函数为：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">out</span> <span class="keyword">int</span> c</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>改写<code>Main</code>函数为：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其输出结果和使用<code>ref</code>输出相同。<br>在调用方法时，实参也要带<code>out</code>关键字，且所传递的变量必须在方法内初始化。</p>
 <blockquote>
-<p>在C#7.0以后可以在参数列表中声明<code>out</code>变量。7.0前必须在调用方法前先声明所需变量。</p>
+<p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
 </blockquote>
-<h1 id="代替"><a href="#代替" class="headerlink" title="代替"></a>代替</h1><p>在C#7.0以后，可以用元组代替上述两个关键字。元组不仅更加便于理解，而且可读性比之后两者有了显著性的提高。<br>在需要返回多个值时，推荐优先考虑元组的实现。</p>
+<h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+
+<p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
+<p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
+<p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
+</blockquote>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>需要在主分支中使用此命令。</p>
+</blockquote>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
+<ol>
+<li>克隆远程仓库(<code>$ git clone</code>)。</li>
+<li>文件操作。</li>
+<li>添加/更新修改过的文件到仓库中(<code>$ git add</code>)。</li>
+<li>提交修改(<code>$ git commit -m</code>)。</li>
+<li>上传(<code>$ git push</code>)。</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>git的命令远远不止这些，有些更加高级的用法会在今后学习。</p>
 <hr>
 
     </div>
@@ -415,7 +450,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://zhangbbsday.github.io/2019/10/17/page05/" title="C#中的ref和out">http://zhangbbsday.github.io/2019/10/17/page05/</a>
+    <a href="http://zhangbbsday.github.io/2019/10/16/git-command/" title="git常用命令">http://zhangbbsday.github.io/2019/10/16/git-command/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -431,7 +466,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/git/" rel="tag"># git</a>
+            
+              <a href="/tags/命令行/" rel="tag"># 命令行</a>
             
           </div>
         
@@ -441,8 +478,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/16/page04/" rel="next" title="git常用命令">
-                  <i class="fa fa-chevron-left"></i> git常用命令
+                <a href="/2019/10/16/killer/" rel="next" title="杀手">
+                  <i class="fa fa-chevron-left"></i> 杀手
                 </a>
               
             </div>
@@ -450,6 +487,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/17/cs-ref-out/" rel="prev" title="C#中的ref和out">
+                  C#中的ref和out <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -495,7 +536,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ref"><span class="nav-number">1.</span> <span class="nav-text">ref</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#out"><span class="nav-number">2.</span> <span class="nav-text">out</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代替"><span class="nav-number">3.</span> <span class="nav-text">代替</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用指令"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆"><span class="nav-number">1.1.</span> <span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-更新"><span class="nav-number">1.2.</span> <span class="nav-text">添加/更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.3.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态"><span class="nav-number">1.4.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">1.5.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">1.6.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">1.6.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.6.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.6.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">1.6.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">1.6.5.</span> <span class="nav-text">合并分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">1.7.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用流程"><span class="nav-number">2.</span> <span class="nav-text">常用流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

@@ -18,8 +18,8 @@
   
   <entry>
     <title>C#中的ref和out</title>
-    <link href="http://zhangbbsday.github.io/2019/10/17/page05/"/>
-    <id>http://zhangbbsday.github.io/2019/10/17/page05/</id>
+    <link href="http://zhangbbsday.github.io/2019/10/17/cs-ref-out/"/>
+    <id>http://zhangbbsday.github.io/2019/10/17/cs-ref-out/</id>
     <published>2019-10-17T14:19:51.000Z</published>
     <updated>2019-10-17T15:14:54.986Z</updated>
     
@@ -43,8 +43,8 @@
   
   <entry>
     <title>git常用命令</title>
-    <link href="http://zhangbbsday.github.io/2019/10/16/page04/"/>
-    <id>http://zhangbbsday.github.io/2019/10/16/page04/</id>
+    <link href="http://zhangbbsday.github.io/2019/10/16/git-command/"/>
+    <id>http://zhangbbsday.github.io/2019/10/16/git-command/</id>
     <published>2019-10-16T08:43:58.000Z</published>
     <updated>2019-10-16T12:21:02.141Z</updated>
     
@@ -62,16 +62,16 @@
       <category term="命令行" scheme="http://zhangbbsday.github.io/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
     
-      <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
-    
       <category term="git" scheme="http://zhangbbsday.github.io/tags/git/"/>
+    
+      <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>杀手</title>
-    <link href="http://zhangbbsday.github.io/2019/10/16/page03/"/>
-    <id>http://zhangbbsday.github.io/2019/10/16/page03/</id>
+    <link href="http://zhangbbsday.github.io/2019/10/16/killer/"/>
+    <id>http://zhangbbsday.github.io/2019/10/16/killer/</id>
     <published>2019-10-16T04:35:47.000Z</published>
     <updated>2019-10-16T04:47:44.317Z</updated>
     
@@ -95,8 +95,8 @@
   
   <entry>
     <title>MarkDown常用内容</title>
-    <link href="http://zhangbbsday.github.io/2019/10/15/page02/"/>
-    <id>http://zhangbbsday.github.io/2019/10/15/page02/</id>
+    <link href="http://zhangbbsday.github.io/2019/10/15/markdown/"/>
+    <id>http://zhangbbsday.github.io/2019/10/15/markdown/</id>
     <published>2019-10-15T06:27:37.000Z</published>
     <updated>2019-10-16T03:42:59.638Z</updated>
     
@@ -120,8 +120,8 @@
   
   <entry>
     <title>hexo常用命令</title>
-    <link href="http://zhangbbsday.github.io/2019/10/14/page01/"/>
-    <id>http://zhangbbsday.github.io/2019/10/14/page01/</id>
+    <link href="http://zhangbbsday.github.io/2019/10/14/hexo-command/"/>
+    <id>http://zhangbbsday.github.io/2019/10/14/hexo-command/</id>
     <published>2019-10-14T10:09:41.000Z</published>
     <updated>2019-10-14T13:17:20.144Z</updated>
     
@@ -139,9 +139,9 @@
       <category term="命令行" scheme="http://zhangbbsday.github.io/categories/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
     
     
-      <category term="hexo" scheme="http://zhangbbsday.github.io/tags/hexo/"/>
-    
       <category term="命令行" scheme="http://zhangbbsday.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+      <category term="hexo" scheme="http://zhangbbsday.github.io/tags/hexo/"/>
     
   </entry>
   

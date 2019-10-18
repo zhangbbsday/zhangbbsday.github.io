@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>C#中的ref和out</title>
-    <url>/2019/10/17/page05/</url>
+    <url>/2019/10/17/cs-ref-out/</url>
     <content><![CDATA[<hr>
 <p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
 <hr>
@@ -45,7 +45,7 @@
   </entry>
   <entry>
     <title>git常用命令</title>
-    <url>/2019/10/16/page04/</url>
+    <url>/2019/10/16/git-command/</url>
     <content><![CDATA[<hr>
 <p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
 <hr>
@@ -115,13 +115,13 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>命令行</tag>
         <tag>git</tag>
+        <tag>命令行</tag>
       </tags>
   </entry>
   <entry>
     <title>杀手</title>
-    <url>/2019/10/16/page03/</url>
+    <url>/2019/10/16/killer/</url>
     <content><![CDATA[<hr>
 <p>所谓的杀手，真的不需要感情吗……</p>
 <hr>
@@ -196,7 +196,7 @@
   </entry>
   <entry>
     <title>MarkDown常用内容</title>
-    <url>/2019/10/15/page02/</url>
+    <url>/2019/10/15/markdown/</url>
     <content><![CDATA[<hr>
 <p>写完了hexo，就在写写MarkDown的使用吧。</p>
 <hr>
@@ -374,7 +374,7 @@
   </entry>
   <entry>
     <title>hexo常用命令</title>
-    <url>/2019/10/14/page01/</url>
+    <url>/2019/10/14/hexo-command/</url>
     <content><![CDATA[<hr>
 <p>第一次用hexo搭建的博客，把一些基础的指令记录一下，以便以后查看。<br>一开始我以为只能用<code>npm</code>, 但后来发现用<code>git</code>更加方便。<del>果然天下命令行皆一家吗……</del></p>
 <hr>
@@ -406,8 +406,8 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>命令行</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
