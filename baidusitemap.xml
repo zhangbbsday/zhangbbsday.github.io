@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://zhangbbsday.github.io/2019/10/17/cs-ref-out/</loc>
-    <lastmod>2019-10-17</lastmod>
-  </url>  <url>
     <loc>http://zhangbbsday.github.io/2019/10/16/git-command/</loc>
-    <lastmod>2019-10-16</lastmod>
+    <lastmod>2019-10-18</lastmod>
   </url>  <url>
-    <loc>http://zhangbbsday.github.io/2019/10/16/killer/</loc>
-    <lastmod>2019-10-16</lastmod>
+    <loc>http://zhangbbsday.github.io/2019/10/18/prime-sieve/</loc>
+    <lastmod>2019-10-18</lastmod>
   </url>  <url>
-    <loc>http://zhangbbsday.github.io/2019/10/15/markdown/</loc>
-    <lastmod>2019-10-16</lastmod>
+    <loc>http://zhangbbsday.github.io/2019/10/17/cs-ref-out/</loc>
+    <lastmod>2019-10-18</lastmod>
   </url>  <url>
     <loc>http://zhangbbsday.github.io/2019/10/14/hexo-command/</loc>
-    <lastmod>2019-10-14</lastmod>
+    <lastmod>2019-10-18</lastmod>
+  </url>  <url>
+    <loc>http://zhangbbsday.github.io/2019/10/15/markdown/</loc>
+    <lastmod>2019-10-18</lastmod>
+  </url>  <url>
+    <loc>http://zhangbbsday.github.io/2019/10/16/killer/</loc>
+    <lastmod>2019-10-18</lastmod>
   </url>
 </urlset>

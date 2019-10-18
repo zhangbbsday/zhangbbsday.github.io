@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>埃氏筛法</title>
+    <url>/2019/10/18/prime-sieve/</url>
+    <content><![CDATA[<hr>
+<p>最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。</p>
+<hr>
+<a id="more"></a>
+<h1 id="埃氏筛法-sieve-of-Eratosthenes"><a href="#埃氏筛法-sieve-of-Eratosthenes" class="headerlink" title="埃氏筛法(sieve of Eratosthenes)"></a>埃氏筛法(sieve of Eratosthenes)</h1><p>埃氏筛法又称为素数筛，是一种求解小范围素数的有效方法。<br>具体步骤如下：</p>
+<ol>
+<li>输入一个$[2, n]$区间，保存在列表中。</li>
+<li>把列表中可以被$2$整除的数筛除。</li>
+<li>把列表中可以被${3 + 2m(m = 0, 1, 2…[\frac{n-3}{2}])}$整除的数筛除。</li>
+<li>获取$[2, n]$区间内的所有素数。</li>
+</ol>
+<p>总体来说，埃氏筛法是用空间换取了时间，时间复杂度为<script type="math/tex">{O(NlogN)}</script>。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>C#实现代码如下：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;<span class="keyword">int</span>&gt; <span class="title">Sieve</span>(<span class="params"><span class="keyword">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;<span class="keyword">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        list.Add(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">            list.Add(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            list.Add(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; list.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (list[j] != i &amp;&amp; list[j] % i == <span class="number">0</span>)</span><br><span class="line">                list[j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码用$-1$标记删去的项，在调用该方法时，通过判断该值即可获取相应素数。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>算法</tag>
+        <tag>素数</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C#中的ref和out</title>
     <url>/2019/10/17/cs-ref-out/</url>
     <content><![CDATA[<hr>
 <p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
 <hr>
 <a id="more"></a>
-
 <h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>我们可以考虑这样一种情况。<br>在某次项目中，我们需要实现一个<code>Swap(int a, int b)</code>方法，用来交换两个整形变量的值。很显然，该方法必须有如下一种实现：</p>
 <ol>
 <li>一次返回两个值。</li>
@@ -15,20 +42,14 @@
 </ol>
 <p>而我们知道，一般情况下，一个方法只能返回一个值。这种情况下，就需要用到<code>ref</code>了。<br>使用<code>ref</code>可以实现第二种方法，它会传递变量的引用给方法。<br>可以写出如下代码：</p>
 <figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span> a, <span class="keyword">ref</span> <span class="keyword">int</span> b</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>在<code>Main</code>函数中调用：</p>
 <figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    Swap(<span class="keyword">ref</span> a, <span class="keyword">ref</span> b);</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>输出：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = 4, b = 3</span><br><span class="line">a = 3, b = 4</span><br></pre></td></tr></table></figure>
-
 <p>在调用方法时，实参也要带<code>ref</code>关键字，且所传递的变量必须初始化。</p>
 <h1 id="out"><a href="#out" class="headerlink" title="out"></a>out</h1><p>在上文中，我们提及了两种实现交换的方法，而<code>out</code>可以实现第一种方法。<br>可以改写<code>Swap</code>函数为：</p>
 <figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">out</span> <span class="keyword">int</span> c</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>改写<code>Main</code>函数为：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>改写<code>Main</code>函数为：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其输出结果和使用<code>ref</code>输出相同。<br>在调用方法时，实参也要带<code>out</code>关键字，且所传递的变量必须在方法内初始化。</p>
 <blockquote>
 <p>在C#7.0以后可以在参数列表中声明<code>out</code>变量。7.0前必须在调用方法前先声明所需变量。</p>
@@ -50,56 +71,43 @@
 <p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
 <hr>
 <a id="more"></a>
-
 <h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
 </blockquote>
 <h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
-
 <p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-
 <h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
-
 <h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-
 <p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
 <p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
 <p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
 <h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
 </blockquote>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
 <h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
-
 <h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-
 <h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>需要在主分支中使用此命令。</p>
 </blockquote>
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-
 <h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
 <ol>
 <li>克隆远程仓库(<code>$ git clone</code>)。</li>
@@ -126,7 +134,6 @@
 <p>所谓的杀手，真的不需要感情吗……</p>
 <hr>
 <a id="more"></a>
-
 <blockquote>
 <p>声明：</p>
 <blockquote>
@@ -201,50 +208,41 @@
 <p>写完了hexo，就在写写MarkDown的使用吧。</p>
 <hr>
 <a id="more"></a>
-
 <h1 id="所谓MarkDown"><a href="#所谓MarkDown" class="headerlink" title="所谓MarkDown"></a>所谓MarkDown</h1><p>所谓MarkDown，在我看来就是一个有了各种变化的文本。这里的各种变化，包括但不限于字体的粗细斜正、多级标题、代码块、超链接等等。<br>而上述的这些变化，都可以通过一系列特定的字符和格式来实现。这可以说是极大的提高了编写的效率。</p>
 <h1 id="我常用的几种"><a href="#我常用的几种" class="headerlink" title="我常用的几种"></a>我常用的几种</h1><p>MarkDown有很多内容，我不过是粗略的掌握了其中一点，但已经足够编写一般性的文章。</p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>正文部分不用任何格式，只要和打txt文本一样打字就可以了。<br><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">这是一段文字。</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：</p>
 <p>这是一段文字。</p>
 <h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>标题用MarkDown写十分便捷。<br>标题有多级，可以通过以下两种方法写：<br><strong>示例一</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">这是一级标题</span><br><span class="line">============</span><br><span class="line">这是二级标题</span><br><span class="line">------------</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出一</strong>：</p>
 <p><img src="https://i.loli.net/2019/10/14/Ro2rmFyNVLnYajP.png" alt="page02_1.png"></p>
 <p>这种写法只能写出两级标题。</p>
 <p><strong>示例二</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出二</strong>：</p>
 <p><img src="https://i.loli.net/2019/10/14/lpxGDZv1XdrNOES.png" alt="page02_2.png"></p>
 <p>这种写法可以写出六级标题。注意<code># 标题</code>中是有空格的。</p>
 <h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>MarkDown可以对字体进行基本的操作。<br><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*斜体*</span><br><span class="line">**粗体**</span><br><span class="line">***粗斜体***</span><br><span class="line">~~删除线~~</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：</p>
 <p><em>斜体</em><br><strong>粗体</strong><br><strong><em>粗斜体</em></strong><br><del>删除线</del></p>
 <h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>作为一个技术博客，写代码是必不可少的。MarkDown用专门的代码块来显示代码。<br>代码块分单行代码块和多行代码块。</p>
 <h3 id="单行代码块"><a href="#单行代码块" class="headerlink" title="单行代码块"></a>单行代码块</h3><p><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">`$ cd`</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：</p>
 <p><code>$ cd</code></p>
 <h3 id="多行代码块"><a href="#多行代码块" class="headerlink" title="多行代码块"></a>多行代码块</h3><p><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(```cs)</span><br><span class="line">class Man</span><br><span class="line">&#123;</span><br><span class="line">  public Name &#123; get; set; &#125;</span><br><span class="line">  public void Do()</span><br><span class="line">  &#123;</span><br><span class="line">    //DoSomething……</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">(```)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>上文用的(` ` `) 是为了防止其编译，正常使用时不带括号。</p>
 </blockquote>
 <p><strong>输出</strong>：</p>
 <figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Man</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>  &#123;</span><br><span class="line">    <span class="comment">//DoSomething……</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>推荐注明所用代码语言，便于语法高亮检查。</p>
 <h2 id="引用块"><a href="#引用块" class="headerlink" title="引用块"></a>引用块</h2><p>引用块是多用来引用别人的话、前情提要等等。<br><strong>示例一</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 活着就是为了死 ——张教主</span><br><span class="line">这句话，直接点明了人生的意义。</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出一</strong>：</p>
 <blockquote>
 <p>活着就是为了死 ——张教主<br>这句话，直接点明了人生的意义。</p>
@@ -252,7 +250,6 @@
 <p><code>&gt;</code>会将其后的所有内容包括其中，直到换行为止。</p>
 <p>引用还可以分级。<br><strong>示例二</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; 活着就是为了死 ——张教主</span><br><span class="line">&gt;&gt;这句话，直接点明了人生的意义。</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出二</strong>：</p>
 <blockquote>
 <p>活着就是为了死 ——张教主</p>
@@ -263,7 +260,6 @@
 <h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>MarkDown提供了插入图片的功能。</p>
 <p><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![黑族AB.png](https://i.loli.net/2019/10/15/WIFel1zcdvoZLOP.png)</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：</p>
 <p><img src="https://i.loli.net/2019/10/15/WIFel1zcdvoZLOP.png" alt="黑族AB.png"></p>
 <blockquote>
@@ -277,14 +273,12 @@
 <p>因为本地引用会出现图片无法正常显示的错误，我采用网络引用的方法。</p>
 <h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><p>MarkDown写超链接的方式和图片类似。<br><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[子文明 百度百科](https://baike.baidu.com/item/%E5%AD%90%E6%96%87%E6%98%8E/23781519?fr=aladdin)</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：<br><a href="https://baike.baidu.com/item/%E5%AD%90%E6%96%87%E6%98%8E/23781519?fr=aladdin" target="_blank" rel="noopener">子文明 百度百科</a></p>
 <blockquote>
 <p>这里的<code>子文明 百度百科</code>是我为《子文明》漫画创建的词条，以后会持续保持更新，有兴趣的也可以参与进来。</p>
 </blockquote>
 <h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>分割线是文章条理清晰的好帮手。用MarkDown可以很方便的写出分割线。<br><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----</span><br><span class="line">* * *</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>：</p>
 <hr>
 <hr>
@@ -292,7 +286,6 @@
 <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>列表是使文章内容更加条理的工具，有有序列表和无序列表之分。</p>
 <p><strong>示例一</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XX游戏更新内容如下：</span><br><span class="line">+ 增加了新的角色；</span><br><span class="line">- 修改了部分数值；</span><br><span class="line">* 修复了些许的BUG；</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出一</strong>：</p>
 <p>XX游戏更新内容如下：</p>
 <ul>
@@ -309,7 +302,6 @@
 </blockquote>
 <p><strong>示例二</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XX游戏更新内容如下：</span><br><span class="line">1. 增加了新的角色；</span><br><span class="line">2. 修改了部分数值；</span><br><span class="line">3. 修复了些许的BUG；</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出二</strong>:</p>
 <p>XX游戏更新内容如下：</p>
 <ol>
@@ -322,7 +314,6 @@
 </blockquote>
 <p>列表还可以嵌套。<br><strong>示例三</strong>:</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XX游戏更新内容如下：</span><br><span class="line">+ 2019.8</span><br><span class="line">    1. 增加了新的角色；</span><br><span class="line">    2. 修改了部分数值；</span><br><span class="line">    3. 修复了些许的BUG；</span><br><span class="line">+ 2019.9</span><br><span class="line">    1. 加入新的敌人。</span><br><span class="line">    2. 优化游戏运行速度。</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出三</strong>：</p>
 <p>XX游戏更新内容如下：</p>
 <ul>
@@ -340,8 +331,8 @@
 </ul>
 <h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><p>MarkDown可以比较方便的编写简单表格。<del>其实我没怎么用过。</del><br><strong>示例</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">姓名|修为|国籍</span><br><span class="line">----|----|----</span><br><span class="line">Jack|A|美国</span><br><span class="line">王一凡|国级|中国</span><br></pre></td></tr></table></figure>
-
 <p><strong>输出</strong>:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -350,7 +341,8 @@
 <th>国籍</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Jack</td>
 <td>A</td>
 <td>美国</td>
@@ -360,7 +352,9 @@
 <td>国级</td>
 <td>中国</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>目前发现无法更改文字位置，只能默认居左排布。</p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>MarkDown还可以画流程图，这个等我用到时候再试试吧。</p>
 <hr>
@@ -376,30 +370,19 @@
     <title>hexo常用命令</title>
     <url>/2019/10/14/hexo-command/</url>
     <content><![CDATA[<hr>
-<p>第一次用hexo搭建的博客，把一些基础的指令记录一下，以便以后查看。<br>一开始我以为只能用<code>npm</code>, 但后来发现用<code>git</code>更加方便。<del>果然天下命令行皆一家吗……</del></p>
+<p>第一次用hexo搭建的博客，把一些基础的指令记录一下，以便以后查看。<br>一开始我以为只能用<code>npm</code>, 但后来发现用<code>git</code>更加方便。<del>~果然天下命令行皆一家吗……</del>~</p>
 <hr>
 <a id="more"></a>
-
-<p><strong>跳转目录</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &lt;directory&gt;</span><br></pre></td></tr></table></figure>
-
+<p><strong>跳转目录</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &lt;directory&gt;</span><br></pre></td></tr></table></figure></p>
 <p>可以跳转到相应目录下。</p>
-<p><strong>清理缓存</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
+<p><strong>清理缓存</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure></p>
 <p>这个名字是我按自己理解来的，在上传文章、更改某些内容和设定时需要先使用此命令。</p>
-<p><strong>调试</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
+<p><strong>调试</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure></p>
 <p>其实调试是另一个命令，但用这个更加方便快捷。可以在发布前查看更改内容。<br>启动调试后，登录<a href="http://localhost:4000" target="_blank" rel="noopener">调试链接</a> 即可查看内容。</p>
-<p><strong>上传</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
+<p><strong>上传</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
 <p>通过这两个命令，可以实现网站的更新。</p>
 <hr>
-<p>具体更新的命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
+<p>具体更新的命令如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure></p>
 <hr>
 ]]></content>
       <categories>
