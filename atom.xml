@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangbbsday.github.io/"/>
-  <updated>2019-10-20T15:15:42.741Z</updated>
+  <updated>2019-10-24T05:13:51.198Z</updated>
   <id>http://zhangbbsday.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C#元组</title>
+    <link href="http://zhangbbsday.github.io/2019/10/24/cs-tuple/"/>
+    <id>http://zhangbbsday.github.io/2019/10/24/cs-tuple/</id>
+    <published>2019-10-24T03:36:37.000Z</published>
+    <updated>2019-10-24T05:13:51.198Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>元组(Tuple)早就在C#中出现过，但直到7.0后，其才能真正发挥应有的作用。<br>这里的元组，便是指C#7.0以后的元组。</p><hr><a id="more"></a><h1 id="何谓元组"><a href="#何谓元组" class="headerlink" title="何谓元组"></a>何谓元组</h1><p>元组，从名字可以看出，是一堆数据的“组”。这些数据可能会有内在的联系，所以被分在一个组内，便于统一管理。<br>不妨考虑下面这个例子。<br>程序中，我们需要储存某些个人信息，那么可以用如下变量来表示：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> name;</span><br><span class="line"><span class="keyword">string</span> job;</span><br><span class="line"><span class="keyword">string</span> country;</span><br><span class="line">Sex sex;</span><br><span class="line"><span class="keyword">int</span> age;</span><br><span class="line">......</span><br></pre></td></tr></table></figure><p>这写起来很繁琐，而且这些数据无法直接体现其内在联系。不妨看看用元组会是什么样子：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br></pre></td></tr></table></figure><p>甚至可以再度简写为：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure><p>这样，便可以通过一个变量<code>people</code>来获取相应数据。</p><h1 id="元组使用"><a href="#元组使用" class="headerlink" title="元组使用"></a>元组使用</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>元组的声明有多种方式，下面我只写出我常用的几种。</p><p><strong>用元组类型声明</strong>。</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure><p><strong>用Var类型声明</strong>。</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> people = (Name: <span class="string">"Jack"</span>, Job: <span class="string">"ASAF A level Number"</span>, Country: <span class="string">"USA"</span>, Gender: Sex.Male, Age: <span class="number">33</span>);</span><br><span class="line"><span class="keyword">var</span> people = (<span class="string">"Jack"</span>, <span class="string">"ASAF A level Number"</span>, <span class="string">"USA"</span>, Sex.Male, <span class="number">33</span>);</span><br></pre></td></tr></table></figure><p>其中上面两种中，第一个都是<strong>具名元组</strong>。</p><h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>元组的调用和类很像，可以把其中的数据看作元组的成员。<br>无论是否为<strong>具名元组</strong>，都可以用如下方法调用：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Item1;</span><br><span class="line"><span class="keyword">string</span> job = people.Item2;</span><br><span class="line">......</span><br></pre></td></tr></table></figure><p>若是<strong>具名元组</strong>，还可以用对应的名字获取数据。</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Name;</span><br><span class="line"><span class="keyword">string</span> job = people.Job;</span><br><span class="line">......</span><br></pre></td></tr></table></figure><blockquote><p>推荐用<strong>PascalCase</strong>命名法命名元组每一项的名字。</p></blockquote><h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>元组其中一个重要应用便是作为返回值，可以一次返回多个不同的数据。<br>看如下的例子：</p><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> (<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) GetPeopleInformation()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">string</span> name;</span><br><span class="line">    <span class="keyword">string</span> job;</span><br><span class="line">    <span class="keyword">string</span> country;</span><br><span class="line">    Sex sex;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取输入</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (name, job, country, sex, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这样便实现了多个值的返回。<br>相比于使用大量的<code>out</code>，元组显然更加优越。</p><h1 id="元组的其他应用"><a href="#元组的其他应用" class="headerlink" title="元组的其他应用"></a>元组的其他应用</h1><p>元组因为其特殊的构造，在C#中有很为广泛的应用。<br>比如我<a href="http://zhangbbsday.github.io/2019/10/20/vector2-struct/">上一篇</a> 中，便是用元组的<code>Equals</code>方法作为Vector2类<code>Equals</code>方法的判断。</p><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;元组(Tuple)早就在C#中出现过，但直到7.0后，其才能真正发挥应有的作用。&lt;br&gt;这里的元组，便是指C#7.0以后的元组。&lt;/p&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="C#" scheme="http://zhangbbsday.github.io/categories/C/"/>
+    
+    
+      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
+    
+      <category term="元组" scheme="http://zhangbbsday.github.io/tags/%E5%85%83%E7%BB%84/"/>
+    
+  </entry>
   
   <entry>
     <title>构建Vector2类型</title>
