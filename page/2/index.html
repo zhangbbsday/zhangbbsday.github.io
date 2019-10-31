@@ -56,33 +56,31 @@
   };
 </script>
 
-  <meta name="description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
-<meta name="keywords" content="C#,算法,素数">
-<meta property="og:type" content="article">
-<meta property="og:title" content="埃氏筛法">
-<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/18/prime-sieve/index.html">
+  <meta name="description" content="编程、小说、游戏……The World">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The World">
+<meta property="og:url" content="http://zhangbbsday.github.io/page/2/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
+<meta property="og:description" content="编程、小说、游戏……The World">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T15:06:39.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="埃氏筛法">
-<meta name="twitter:description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
-  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/">
+<meta name="twitter:title" content="The World">
+<meta name="twitter:description" content="编程、小说、游戏……The World">
+  <link rel="canonical" href="http://zhangbbsday.github.io/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
+    isHome: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>埃氏筛法 | The World</title>
+  <title>The World</title>
   
 
 
@@ -274,11 +272,11 @@
             
 
   <div class="posts-expand">
-      
+        
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/git-command/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="火提昂">
@@ -292,9 +290,8 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            埃氏筛法
             
-
+            <a href="/2019/10/16/git-command/" class="post-title-link" itemprop="url">git常用命令</a>
           
         </h2>
 
@@ -309,7 +306,7 @@
                 
               
 
-              <time title="创建时间：2019-10-18 22:00:53" itemprop="dateCreated datePublished" datetime="2019-10-18T22:00:53+08:00">2019-10-18</time>
+              <time title="创建时间：2019-10-16 16:43:58" itemprop="dateCreated datePublished" datetime="2019-10-16T16:43:58+08:00">2019-10-16</time>
             </span>
           
             
@@ -320,7 +317,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 23:06:39" itemprop="dateModified" datetime="2019-10-20T23:06:39+08:00">2019-10-20</time>
+                <time title="修改时间：2019-10-18 23:22:28" itemprop="dateModified" datetime="2019-10-18T23:22:28+08:00">2019-10-18</time>
               </span>
             
           
@@ -331,8 +328,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
+                  <a href="/categories/命令行/" itemprop="url" rel="index">
+                    <span itemprop="name">命令行</span>
                   </a>
                 </span>
 
@@ -351,7 +348,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>687</span>
+              <span>1k</span>
             </span>
           
 
@@ -364,22 +361,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<p>最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。</p>
+          <hr>
+<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
 <hr>
-<a id="more"></a>
-<h1 id="埃氏筛法-sieve-of-Eratosthenes"><a href="#埃氏筛法-sieve-of-Eratosthenes" class="headerlink" title="埃氏筛法(sieve of Eratosthenes)"></a>埃氏筛法(sieve of Eratosthenes)</h1><p>埃氏筛法又称为素数筛，是一种求解小范围素数的有效方法。<br>具体步骤如下：</p>
-<ol>
-<li>输入一个$[2, n]$区间，保存在列表中。</li>
-<li>把列表中可以被$2$整除的数筛除。</li>
-<li>把列表中可以被${3 + 2m(m = 0, 1, 2…[\frac{n-3}{2}])}$整除的数筛除。</li>
-<li>获取$[2, n]$区间内的所有素数。</li>
-</ol>
-<p>总体来说，埃氏筛法是用空间换取了时间，时间复杂度为<script type="math/tex">{O(Nlog(logN))}</script>。</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>C#实现代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;<span class="keyword">int</span>&gt; <span class="title">Sieve</span>(<span class="params"><span class="keyword">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;<span class="keyword">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        list.Add(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">            list.Add(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            list.Add(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; list.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (list[j] != i &amp;&amp; list[j] % i == <span class="number">0</span>)</span><br><span class="line">                list[j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码用$-1$标记删去的项，在调用该方法时，通过判断该值即可获取相应素数。</p>
-<hr>
-
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/16/git-command/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
     </div>
 
     
@@ -388,79 +383,386 @@
 
 	<div>
 		
-			<div>
-    
-        <div style="text-align:center;color: #555;font-size:20px;">-------------End-------------</div>
-    
-</div>
-		
 	</div>
-        
-      
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>火提昂
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/" title="埃氏筛法">http://zhangbbsday.github.io/2019/10/18/prime-sieve/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-      
-
       <footer class="post-footer">
-          
-            
-          
-          <div class="post-tags">
-            
-              <a href="/tags/C/" rel="tag"># C#</a>
-            
-              <a href="/tags/算法/" rel="tag"># 算法</a>
-            
-              <a href="/tags/素数/" rel="tag"># 素数</a>
-            
-          </div>
-        
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2019/10/17/cs-ref-out/" rel="next" title="C#中的ref和out">
-                  <i class="fa fa-chevron-left"></i> C#中的ref和out
-                </a>
-              
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/20/vector2-struct/" rel="prev" title="构建Vector2类型">
-                  构建Vector2类型 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
-          </div>
-        
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
 
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/17/cs-ref-out/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="火提昂">
+      <meta itemprop="description" content="编程、小说、游戏……The World">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/17/cs-ref-out/" class="post-title-link" itemprop="url">C#中的ref和out</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-17 22:19:51" itemprop="dateCreated datePublished" datetime="2019-10-17T22:19:51+08:00">2019-10-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-18 22:42:07" itemprop="dateModified" datetime="2019-10-18T22:42:07+08:00">2019-10-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1k</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
+<hr>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/17/cs-ref-out/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+		
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/14/hexo-command/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="火提昂">
+      <meta itemprop="description" content="编程、小说、游戏……The World">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/14/hexo-command/" class="post-title-link" itemprop="url">hexo常用命令</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-14 18:09:41" itemprop="dateCreated datePublished" datetime="2019-10-14T18:09:41+08:00">2019-10-14</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-18 22:41:55" itemprop="dateModified" datetime="2019-10-18T22:41:55+08:00">2019-10-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/命令行/" itemprop="url" rel="index">
+                    <span itemprop="name">命令行</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>298</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>第一次用hexo搭建的博客，把一些基础的指令记录一下，以便以后查看。<br>一开始我以为只能用<code>npm</code>, 但后来发现用<code>git</code>更加方便。<del>~果然天下命令行皆一家吗……</del>~</p>
+<hr>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/14/hexo-command/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+		
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/killer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="火提昂">
+      <meta itemprop="description" content="编程、小说、游戏……The World">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/16/killer/" class="post-title-link" itemprop="url">杀手</a>
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-16 12:35:47" itemprop="dateCreated datePublished" datetime="2019-10-16T12:35:47+08:00">2019-10-16</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-18 22:41:55" itemprop="dateModified" datetime="2019-10-18T22:41:55+08:00">2019-10-18</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/随便写写/" itemprop="url" rel="index">
+                    <span itemprop="name">随便写写</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>2k</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>所谓的杀手，真的不需要感情吗……</p>
+<hr>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/2019/10/16/killer/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+		
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
   </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -477,11 +779,6 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
-        
-        
-        
-        
-      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -494,8 +791,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#埃氏筛法-sieve-of-Eratosthenes"><span class="nav-number">1.</span> <span class="nav-text">埃氏筛法(sieve of Eratosthenes)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
@@ -647,7 +942,7 @@
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  <script src="/js/local-search.js?v=7.4.1"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -667,52 +962,12 @@
   
     
       
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
+    
+      
+    
+      
+    
+      
     
   
 

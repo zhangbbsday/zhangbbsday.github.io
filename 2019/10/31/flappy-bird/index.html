@@ -56,19 +56,23 @@
   };
 </script>
 
-  <meta name="description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
-<meta name="keywords" content="C#,算法,素数">
+  <meta name="description" content="FlappyBird，中文译名飞扬的小鸟，是曾经风靡一时的独立小游戏。应游戏开发需要，我从零开始制作了这款游戏。">
+<meta name="keywords" content="Unity,游戏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="埃氏筛法">
-<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/18/prime-sieve/index.html">
+<meta property="og:title" content="FlappyBird">
+<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/31/flappy-bird/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
+<meta property="og:description" content="FlappyBird，中文译名飞扬的小鸟，是曾经风靡一时的独立小游戏。应游戏开发需要，我从零开始制作了这款游戏。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-20T15:06:39.439Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/31/Gur8pLhgwAcKqIQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/31/mStlCKjnBNVEi4Q.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/31/9pVkWxn6rU5L1lI.png">
+<meta property="og:updated_time" content="2019-10-31T14:10:47.913Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="埃氏筛法">
-<meta name="twitter:description" content="最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。">
-  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/">
+<meta name="twitter:title" content="FlappyBird">
+<meta name="twitter:description" content="FlappyBird，中文译名飞扬的小鸟，是曾经风靡一时的独立小游戏。应游戏开发需要，我从零开始制作了这款游戏。">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/31/Gur8pLhgwAcKqIQ.png">
+  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/31/flappy-bird/">
 
 
 <script id="page-configurations">
@@ -82,7 +86,7 @@
   };
 </script>
 
-  <title>埃氏筛法 | The World</title>
+  <title>FlappyBird | The World</title>
   
 
 
@@ -278,7 +282,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/31/flappy-bird/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="火提昂">
@@ -292,7 +296,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            埃氏筛法
+            FlappyBird
             
 
           
@@ -309,37 +313,12 @@
                 
               
 
-              <time title="创建时间：2019-10-18 22:00:53" itemprop="dateCreated datePublished" datetime="2019-10-18T22:00:53+08:00">2019-10-18</time>
+              <time title="创建时间：2019-10-31 21:39:05 / 修改时间：22:10:47" itemprop="dateCreated datePublished" datetime="2019-10-31T21:39:05+08:00">2019-10-31</time>
             </span>
           
             
 
             
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-20 23:06:39" itemprop="dateModified" datetime="2019-10-20T23:06:39+08:00">2019-10-20</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -351,7 +330,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>687</span>
+              <span>212</span>
             </span>
           
 
@@ -365,19 +344,46 @@
 
       
         <hr>
-<p>最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。</p>
+<p>FlappyBird，中文译名飞扬的小鸟，是曾经风靡一时的独立小游戏。<br>应游戏开发需要，我从零开始制作了这款游戏。</p>
 <hr>
 <a id="more"></a>
-<h1 id="埃氏筛法-sieve-of-Eratosthenes"><a href="#埃氏筛法-sieve-of-Eratosthenes" class="headerlink" title="埃氏筛法(sieve of Eratosthenes)"></a>埃氏筛法(sieve of Eratosthenes)</h1><p>埃氏筛法又称为素数筛，是一种求解小范围素数的有效方法。<br>具体步骤如下：</p>
-<ol>
-<li>输入一个$[2, n]$区间，保存在列表中。</li>
-<li>把列表中可以被$2$整除的数筛除。</li>
-<li>把列表中可以被${3 + 2m(m = 0, 1, 2…[\frac{n-3}{2}])}$整除的数筛除。</li>
-<li>获取$[2, n]$区间内的所有素数。</li>
-</ol>
-<p>总体来说，埃氏筛法是用空间换取了时间，时间复杂度为<script type="math/tex">{O(Nlog(logN))}</script>。</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>C#实现代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;<span class="keyword">int</span>&gt; <span class="title">Sieve</span>(<span class="params"><span class="keyword">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;<span class="keyword">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        list.Add(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">            list.Add(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            list.Add(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; list.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (list[j] != i &amp;&amp; list[j] % i == <span class="number">0</span>)</span><br><span class="line">                list[j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码用$-1$标记删去的项，在调用该方法时，通过判断该值即可获取相应素数。</p>
+<h1 id="游戏简介"><a href="#游戏简介" class="headerlink" title="游戏简介"></a>游戏简介</h1><p>这是我第二款完成制作的游戏，也是第一款Unity游戏。<br>本游戏为开源项目。<br>具体内容如下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">键</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">名字</td>
+<td style="text-align:center">FlappyBird</td>
+</tr>
+<tr>
+<td style="text-align:center">平台</td>
+<td style="text-align:center">PC</td>
+</tr>
+<tr>
+<td style="text-align:center">引擎</td>
+<td style="text-align:center">Unity</td>
+</tr>
+<tr>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">益智类</td>
+</tr>
+<tr>
+<td style="text-align:center">年龄限制</td>
+<td style="text-align:center">全年龄</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="游戏操作"><a href="#游戏操作" class="headerlink" title="游戏操作"></a>游戏操作</h1><p>鼠标操作。</p>
+<h1 id="游戏截图"><a href="#游戏截图" class="headerlink" title="游戏截图"></a>游戏截图</h1><p><img src="https://i.loli.net/2019/10/31/Gur8pLhgwAcKqIQ.png" alt="USVD0FA__`H@LQ_0GEJVB7S.png"><br><img src="https://i.loli.net/2019/10/31/mStlCKjnBNVEi4Q.png" alt="ABFZ__KG__BTO5JE__EJ9PN.png"><br><img src="https://i.loli.net/2019/10/31/9pVkWxn6rU5L1lI.png" alt="W_KX_UR1N_2EA`2`UENMOCU.png"></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>可以通过我的<a href="https://github.com/zhangbbsday/FlappyBird/releases/tag/V1.0" target="_blank" rel="noopener">GitHub仓库</a>下载。</p>
+<h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p><strong>本游戏为开源项目。仅用于个人娱乐和学习，严禁商用！</strong><br>如有侵权，请及时联系我。</p>
 <hr>
 
     </div>
@@ -406,7 +412,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://zhangbbsday.github.io/2019/10/18/prime-sieve/" title="埃氏筛法">http://zhangbbsday.github.io/2019/10/18/prime-sieve/</a>
+    <a href="http://zhangbbsday.github.io/2019/10/31/flappy-bird/" title="FlappyBird">http://zhangbbsday.github.io/2019/10/31/flappy-bird/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -422,11 +428,9 @@
           
           <div class="post-tags">
             
-              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
             
-              <a href="/tags/算法/" rel="tag"># 算法</a>
-            
-              <a href="/tags/素数/" rel="tag"># 素数</a>
+              <a href="/tags/游戏/" rel="tag"># 游戏</a>
             
           </div>
         
@@ -436,8 +440,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/17/cs-ref-out/" rel="next" title="C#中的ref和out">
-                  <i class="fa fa-chevron-left"></i> C#中的ref和out
+                <a href="/2019/10/27/regex/" rel="next" title="C#中的正则表达式">
+                  <i class="fa fa-chevron-left"></i> C#中的正则表达式
                 </a>
               
             </div>
@@ -445,10 +449,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/20/vector2-struct/" rel="prev" title="构建Vector2类型">
-                  构建Vector2类型 <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -494,7 +494,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#埃氏筛法-sieve-of-Eratosthenes"><span class="nav-number">1.</span> <span class="nav-text">埃氏筛法(sieve of Eratosthenes)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#游戏简介"><span class="nav-number">1.</span> <span class="nav-text">游戏简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#游戏操作"><span class="nav-number">2.</span> <span class="nav-text">游戏操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#游戏截图"><span class="nav-number">3.</span> <span class="nav-text">游戏截图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载"><span class="nav-number">4.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明"><span class="nav-number">5.</span> <span class="nav-text">声明</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -647,7 +647,7 @@
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  <script src="/js/local-search.js?v=7.4.1"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -664,56 +664,6 @@
 
   
 
-  
-    
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
-<script>
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-
-    
   
 
   
