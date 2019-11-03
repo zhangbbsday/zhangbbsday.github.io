@@ -56,22 +56,22 @@
   };
 </script>
 
-  <meta name="description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
-<meta name="keywords" content="命令行,git">
+  <meta name="description" content="Unity 中经常需要存储数据，比如实现存档功能。这时候便需要把数据保存在文件中，以便数据持久化。保存数据的文件类型有很多种，其中便包含 CSV 文件类型。">
+<meta name="keywords" content="C#,Unity,CSV,IO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git常用命令">
-<meta property="og:url" content="http://zhangbbsday.github.io/2019/10/16/git-command/index.html">
+<meta property="og:title" content="Unity读取和写入CSV文件">
+<meta property="og:url" content="http://zhangbbsday.github.io/2019/11/03/csv-read-and-write/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
+<meta property="og:description" content="Unity 中经常需要存储数据，比如实现存档功能。这时候便需要把数据保存在文件中，以便数据持久化。保存数据的文件类型有很多种，其中便包含 CSV 文件类型。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png">
-<meta property="og:updated_time" content="2019-10-18T15:22:28.652Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/03/qJDVUni32fGW6BQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/03/84bLXFfwoxkGtJl.png">
+<meta property="og:updated_time" content="2019-11-03T14:25:52.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git常用命令">
-<meta name="twitter:description" content="git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。下面会写写一些常用的git命令，能够满足普通程度的需要。">
-<meta name="twitter:image" content="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png">
-  <link rel="canonical" href="http://zhangbbsday.github.io/2019/10/16/git-command/">
+<meta name="twitter:title" content="Unity读取和写入CSV文件">
+<meta name="twitter:description" content="Unity 中经常需要存储数据，比如实现存档功能。这时候便需要把数据保存在文件中，以便数据持久化。保存数据的文件类型有很多种，其中便包含 CSV 文件类型。">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/03/qJDVUni32fGW6BQ.png">
+  <link rel="canonical" href="http://zhangbbsday.github.io/2019/11/03/csv-read-and-write/">
 
 
 <script id="page-configurations">
@@ -85,7 +85,7 @@
   };
 </script>
 
-  <title>git常用命令 | The World</title>
+  <title>Unity读取和写入CSV文件 | The World</title>
   
 
 
@@ -281,7 +281,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/10/16/git-command/">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/11/03/csv-read-and-write/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="火提昂">
@@ -295,7 +295,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            git常用命令
+            Unity读取和写入CSV文件
             
 
           
@@ -312,19 +312,11 @@
                 
               
 
-              <time title="创建时间：2019-10-16 16:43:58" itemprop="dateCreated datePublished" datetime="2019-10-16T16:43:58+08:00">2019-10-16</time>
+              <time title="创建时间：2019-11-03 21:34:21 / 修改时间：22:25:52" itemprop="dateCreated datePublished" datetime="2019-11-03T21:34:21+08:00">2019-11-03</time>
             </span>
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-18 23:22:28" itemprop="dateModified" datetime="2019-10-18T23:22:28+08:00">2019-10-18</time>
-              </span>
             
           
             <span class="post-meta-item">
@@ -334,8 +326,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/命令行/" itemprop="url" rel="index">
-                    <span itemprop="name">命令行</span>
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
                   </a>
                 </span>
 
@@ -354,7 +346,7 @@
               
                 <span class="post-meta-item-text">本文字数：</span>
               
-              <span>1k</span>
+              <span>1.5k</span>
             </span>
           
 
@@ -368,55 +360,36 @@
 
       
         <hr>
-<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
+<p>Unity 中经常需要存储数据，比如实现存档功能。这时候便需要把数据保存在文件中，以便数据持久化。<br>保存数据的文件类型有很多种，其中便包含 CSV 文件类型。</p>
 <hr>
 <a id="more"></a>
-<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="CSV文件类型"><a href="#CSV文件类型" class="headerlink" title="CSV文件类型"></a>CSV文件类型</h1><p>CSV，全称为 Comma-Separated Values，中文译名为逗号分隔值。顾名思义，该类文件保存数据的方式便是以逗号分隔。<br>CSV 文件可以使用 Excel 编辑，但其本质仍是文本文档。<br>一个常见的 CSV 文件如下图所示：</p>
+<p><img src="https://i.loli.net/2019/11/03/qJDVUni32fGW6BQ.png" alt="image.png"></p>
+<p>其在文本中为：</p>
+<p><img src="https://i.loli.net/2019/11/03/84bLXFfwoxkGtJl.png" alt="image.png"></p>
 <blockquote>
-<p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
+<p>CSV 中分隔符类型可以自义定。</p>
 </blockquote>
-<h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
-<p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
-<p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
-<p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<p>因为其有分隔符的特性，可以很方便的处理简单数据。</p>
+<h1 id="读取和写入"><a href="#读取和写入" class="headerlink" title="读取和写入"></a>读取和写入</h1><p>Unity 使用 C# 作为脚本语言。而 C# 提供了很多操作文件的类和方法，极大的简化了编写流程。<br>所用操作文件的方法，都在<code>System.IO</code>命名空间内。<br>下面的代码，是我自制游戏 FlappyBird 内所用的。</p>
+<h2 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h2><p>C# 中有专门读取文件的类<code>StreamReader</code>。<br>这里要读取文件内的分数，可以写出如下代码：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> StreamReader <span class="title">Read</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (path == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    path += fileName;</span><br><span class="line">    <span class="keyword">if</span> (!File.Exists(path))</span><br><span class="line">        File.CreateText(path);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> StreamReader(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后用一个<code>public</code>方法调用之。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;<span class="keyword">string</span>[]&gt; ReadCsv(<span class="keyword">string</span> path)</span><br><span class="line">&#123;</span><br><span class="line">    List&lt;<span class="keyword">string</span>[]&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>[]&gt;();</span><br><span class="line">    <span class="keyword">string</span> line;</span><br><span class="line">    StreamReader stream = Read(path);</span><br><span class="line">    <span class="keyword">while</span> ((line = stream.ReadLine()) != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        list.Add(line.Split(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    stream.Close();</span><br><span class="line">    stream.Dispose();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分隔的字符串，每一行都是一个<code>string[]</code>，用一个<code>List&lt;string[]&gt;</code>保存所有内容。</p>
 <blockquote>
-<p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
+<p>这里的<code>fileName</code>是指 CSV 文件的地址，如<code>\save.csv</code>。</p>
 </blockquote>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
-<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
-<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>需要在主分支中使用此命令。</p>
-</blockquote>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-<h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
+<p>随后便可以根据具体需求，对数据进行处理。</p>
+<h2 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h2><p>与上文的<code>StreamReader</code>对应，读取文件用的是<code>StreamWriter</code>。<br>其打开文件的方法和上文读取文件的方法类似，故略去。<br>在我的项目内，我需要对游戏内实时产生的分数写入文件，以形成一个所谓分数排行榜。<br>所以代码如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">WriteCsv</span>(<span class="params"><span class="keyword">string</span>[] strs, <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StreamWriter stream = Write(path);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (strs[i] != <span class="literal">null</span>)</span><br><span class="line">            stream.WriteLine(<span class="string">$"<span class="subst">&#123;(i + <span class="number">1</span>).ToString()&#125;</span>,<span class="subst">&#123;strs[i]&#125;</span>"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    stream.Close();</span><br><span class="line">    stream.Dispose();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>对文件的操作有一些注意事项，下面都是我血和泪的教训。</p>
 <ol>
-<li>克隆远程仓库(<code>$ git clone</code>)。</li>
-<li>文件操作。</li>
-<li>添加/更新修改过的文件到仓库中(<code>$ git add</code>)。</li>
-<li>提交修改(<code>$ git commit -m</code>)。</li>
-<li>上传(<code>$ git push</code>)。</li>
+<li>不能写入已经打开的文件。</li>
+<li>在操作文件之前，要检查文件是否存在。</li>
+<li>操作文件有一定性能问题，注意不要放在<code>Update</code>内。</li>
+<li>对于 Unity 来讲，文件所在文件夹内必须已经有文件，否则 Unity 打包时不会生成该文件夹。</li>
 </ol>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>git的命令远远不止这些，有些更加高级的用法会在今后学习。</p>
 <hr>
 
     </div>
@@ -445,7 +418,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://zhangbbsday.github.io/2019/10/16/git-command/" title="git常用命令">http://zhangbbsday.github.io/2019/10/16/git-command/</a>
+    <a href="http://zhangbbsday.github.io/2019/11/03/csv-read-and-write/" title="Unity读取和写入CSV文件">http://zhangbbsday.github.io/2019/11/03/csv-read-and-write/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -461,9 +434,13 @@
           
           <div class="post-tags">
             
-              <a href="/tags/命令行/" rel="tag"># 命令行</a>
+              <a href="/tags/C/" rel="tag"># C#</a>
             
-              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+            
+              <a href="/tags/CSV/" rel="tag"># CSV</a>
+            
+              <a href="/tags/IO/" rel="tag"># IO</a>
             
           </div>
         
@@ -473,8 +450,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2019/10/16/killer/" rel="next" title="杀手">
-                  <i class="fa fa-chevron-left"></i> 杀手
+                <a href="/2019/10/31/flappy-bird/" rel="next" title="FlappyBird">
+                  <i class="fa fa-chevron-left"></i> FlappyBird
                 </a>
               
             </div>
@@ -482,10 +459,6 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/17/cs-ref-out/" rel="prev" title="C#中的ref和out">
-                  C#中的ref和out <i class="fa fa-chevron-right"></i>
-                </a>
               
             </div>
           </div>
@@ -531,7 +504,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常用指令"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆"><span class="nav-number">1.1.</span> <span class="nav-text">克隆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加-更新"><span class="nav-number">1.2.</span> <span class="nav-text">添加/更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.3.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态"><span class="nav-number">1.4.</span> <span class="nav-text">状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传"><span class="nav-number">1.5.</span> <span class="nav-text">上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">1.6.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看分支"><span class="nav-number">1.6.1.</span> <span class="nav-text">查看分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.6.2.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.6.3.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换分支"><span class="nav-number">1.6.4.</span> <span class="nav-text">切换分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并分支"><span class="nav-number">1.6.5.</span> <span class="nav-text">合并分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">1.7.</span> <span class="nav-text">更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用流程"><span class="nav-number">2.</span> <span class="nav-text">常用流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSV文件类型"><span class="nav-number">1.</span> <span class="nav-text">CSV文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读取和写入"><span class="nav-number">2.</span> <span class="nav-text">读取和写入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读取"><span class="nav-number">2.1.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写入"><span class="nav-number">2.2.</span> <span class="nav-text">写入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">3.</span> <span class="nav-text">注意</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->

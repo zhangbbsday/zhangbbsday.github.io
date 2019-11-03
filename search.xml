@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Unity读取和写入CSV文件</title>
+    <url>/2019/11/03/csv-read-and-write/</url>
+    <content><![CDATA[<hr>
+<p>Unity 中经常需要存储数据，比如实现存档功能。这时候便需要把数据保存在文件中，以便数据持久化。<br>保存数据的文件类型有很多种，其中便包含 CSV 文件类型。</p>
+<hr>
+<a id="more"></a>
+<h1 id="CSV文件类型"><a href="#CSV文件类型" class="headerlink" title="CSV文件类型"></a>CSV文件类型</h1><p>CSV，全称为 Comma-Separated Values，中文译名为逗号分隔值。顾名思义，该类文件保存数据的方式便是以逗号分隔。<br>CSV 文件可以使用 Excel 编辑，但其本质仍是文本文档。<br>一个常见的 CSV 文件如下图所示：</p>
+<p><img src="https://i.loli.net/2019/11/03/qJDVUni32fGW6BQ.png" alt="image.png"></p>
+<p>其在文本中为：</p>
+<p><img src="https://i.loli.net/2019/11/03/84bLXFfwoxkGtJl.png" alt="image.png"></p>
+<blockquote>
+<p>CSV 中分隔符类型可以自义定。</p>
+</blockquote>
+<p>因为其有分隔符的特性，可以很方便的处理简单数据。</p>
+<h1 id="读取和写入"><a href="#读取和写入" class="headerlink" title="读取和写入"></a>读取和写入</h1><p>Unity 使用 C# 作为脚本语言。而 C# 提供了很多操作文件的类和方法，极大的简化了编写流程。<br>所用操作文件的方法，都在<code>System.IO</code>命名空间内。<br>下面的代码，是我自制游戏 FlappyBird 内所用的。</p>
+<h2 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h2><p>C# 中有专门读取文件的类<code>StreamReader</code>。<br>这里要读取文件内的分数，可以写出如下代码：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> StreamReader <span class="title">Read</span>(<span class="params"><span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (path == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    path += fileName;</span><br><span class="line">    <span class="keyword">if</span> (!File.Exists(path))</span><br><span class="line">        File.CreateText(path);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> StreamReader(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后用一个<code>public</code>方法调用之。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;<span class="keyword">string</span>[]&gt; ReadCsv(<span class="keyword">string</span> path)</span><br><span class="line">&#123;</span><br><span class="line">    List&lt;<span class="keyword">string</span>[]&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">string</span>[]&gt;();</span><br><span class="line">    <span class="keyword">string</span> line;</span><br><span class="line">    StreamReader stream = Read(path);</span><br><span class="line">    <span class="keyword">while</span> ((line = stream.ReadLine()) != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        list.Add(line.Split(<span class="string">','</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    stream.Close();</span><br><span class="line">    stream.Dispose();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分隔的字符串，每一行都是一个<code>string[]</code>，用一个<code>List&lt;string[]&gt;</code>保存所有内容。</p>
+<blockquote>
+<p>这里的<code>fileName</code>是指 CSV 文件的地址，如<code>\save.csv</code>。</p>
+</blockquote>
+<p>随后便可以根据具体需求，对数据进行处理。</p>
+<h2 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h2><p>与上文的<code>StreamReader</code>对应，读取文件用的是<code>StreamWriter</code>。<br>其打开文件的方法和上文读取文件的方法类似，故略去。<br>在我的项目内，我需要对游戏内实时产生的分数写入文件，以形成一个所谓分数排行榜。<br>所以代码如下：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">WriteCsv</span>(<span class="params"><span class="keyword">string</span>[] strs, <span class="keyword">string</span> path</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    StreamWriter stream = Write(path);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (strs[i] != <span class="literal">null</span>)</span><br><span class="line">            stream.WriteLine(<span class="string">$"<span class="subst">&#123;(i + <span class="number">1</span>).ToString()&#125;</span>,<span class="subst">&#123;strs[i]&#125;</span>"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    stream.Close();</span><br><span class="line">    stream.Dispose();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>对文件的操作有一些注意事项，下面都是我血和泪的教训。</p>
+<ol>
+<li>不能写入已经打开的文件。</li>
+<li>在操作文件之前，要检查文件是否存在。</li>
+<li>操作文件有一定性能问题，注意不要放在<code>Update</code>内。</li>
+<li>对于 Unity 来讲，文件所在文件夹内必须已经有文件，否则 Unity 打包时不会生成该文件夹。</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>Unity</tag>
+        <tag>CSV</tag>
+        <tag>IO</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>FlappyBird</title>
     <url>/2019/10/31/flappy-bird/</url>
     <content><![CDATA[<hr>
@@ -46,6 +92,9 @@
 <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p><strong>本游戏为开源项目。仅用于个人娱乐和学习，严禁商用！</strong><br>如有侵权，请及时联系我。</p>
 <hr>
 ]]></content>
+      <categories>
+        <category>游戏</category>
+      </categories>
       <tags>
         <tag>Unity</tag>
         <tag>游戏</tag>
@@ -309,6 +358,306 @@
       </tags>
   </entry>
   <entry>
+    <title>C#元组</title>
+    <url>/2019/10/24/cs-tuple/</url>
+    <content><![CDATA[<hr>
+<p>元组(Tuple)早就在C#中出现过，但直到7.0后，其才能真正发挥应有的作用。<br>这里的元组，便是指C#7.0以后的元组。</p>
+<hr>
+<a id="more"></a>
+<h1 id="何谓元组"><a href="#何谓元组" class="headerlink" title="何谓元组"></a>何谓元组</h1><p>元组，从名字可以看出，是一堆数据的“组”。这些数据可能会有内在的联系，所以被分在一个组内，便于统一管理。<br>不妨考虑下面这个例子。<br>程序中，我们需要储存某些个人信息，那么可以用如下变量来表示：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name;</span><br><span class="line"><span class="keyword">string</span> job;</span><br><span class="line"><span class="keyword">string</span> country;</span><br><span class="line">Sex sex;</span><br><span class="line"><span class="keyword">int</span> age;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>这写起来很繁琐，而且这些数据无法直接体现其内在联系。不妨看看用元组会是什么样子：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br></pre></td></tr></table></figure>
+<p>甚至可以再度简写为：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure>
+<p>这样，便可以通过一个变量<code>people</code>来获取相应数据。</p>
+<h1 id="元组使用"><a href="#元组使用" class="headerlink" title="元组使用"></a>元组使用</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>元组的声明有多种方式，下面我只写出我常用的几种。</p>
+<p><strong>用元组类型声明</strong>。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure>
+<p><strong>用Var类型声明</strong>。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> people = (Name: <span class="string">"Jack"</span>, Job: <span class="string">"ASAF A level Number"</span>, Country: <span class="string">"USA"</span>, Gender: Sex.Male, Age: <span class="number">33</span>);</span><br><span class="line"><span class="keyword">var</span> people = (<span class="string">"Jack"</span>, <span class="string">"ASAF A level Number"</span>, <span class="string">"USA"</span>, Sex.Male, <span class="number">33</span>);</span><br></pre></td></tr></table></figure>
+<p>其中上面两种中，第一个都是<strong>具名元组</strong>。</p>
+<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>元组的调用和类很像，可以把其中的数据看作元组的成员。<br>无论是否为<strong>具名元组</strong>，都可以用如下方法调用：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Item1;</span><br><span class="line"><span class="keyword">string</span> job = people.Item2;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>若是<strong>具名元组</strong>，还可以用对应的名字获取数据。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Name;</span><br><span class="line"><span class="keyword">string</span> job = people.Job;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>推荐用<strong>PascalCase</strong>命名法命名元组每一项的名字。</p>
+</blockquote>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>元组其中一个重要应用便是作为返回值，可以一次返回多个不同的数据。<br>看如下的例子：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> (<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) GetPeopleInformation()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">string</span> name;</span><br><span class="line">    <span class="keyword">string</span> job;</span><br><span class="line">    <span class="keyword">string</span> country;</span><br><span class="line">    Sex sex;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取输入</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (name, job, country, sex, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样便实现了多个值的返回。<br>相比于使用大量的<code>out</code>，元组显然更加优越。</p>
+<h1 id="元组的其他应用"><a href="#元组的其他应用" class="headerlink" title="元组的其他应用"></a>元组的其他应用</h1><p>元组因为其特殊的构造，在C#中有很为广泛的应用。<br>比如我<a href="http://zhangbbsday.github.io/2019/10/20/vector2-struct/">上一篇</a> 中，便是用元组的<code>Equals</code>方法作为Vector2类<code>Equals</code>方法的判断。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>C#</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>元组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>构建Vector2类型</title>
+    <url>/2019/10/20/vector2-struct/</url>
+    <content><![CDATA[<hr>
+<p>在大多数游戏引擎中，都会实现Vector类型，包括但不限于Vector2、Vector3等等。<br>出于好奇，加之想练习值类型的应用，我打算自己实现Vector2类型。</p>
+<hr>
+<a id="more"></a>
+<h1 id="C-的值类型和引用类型"><a href="#C-的值类型和引用类型" class="headerlink" title="C#的值类型和引用类型"></a>C#的值类型和引用类型</h1><p>在C#里，数据类型有两种：值类型和引用类型。<br>具体来讲，值类型的数据是指储存在栈里的。每一个值类型直接包含值，修改一个已经有值的值类型，会创建一个新的值类型。<br>引用类型的数据是储存在堆里的。每一个已初始化的引用类型都包含一个指向数据的地址，相当于是C语言里的<strong>指针</strong>。若是有两个引用类型引用同一个对象，修改其中一个数据，都会使另一个数据发生变化。<br>常见的值类型有：</p>
+<ul>
+<li>整形类型；</li>
+<li>浮点类型；</li>
+<li>布尔类型</li>
+</ul>
+<p>常见的引用类型有：</p>
+<ul>
+<li>字符串类型;</li>
+<li>class</li>
+</ul>
+<h1 id="Vector2类型的构建"><a href="#Vector2类型的构建" class="headerlink" title="Vector2类型的构建"></a>Vector2类型的构建</h1><p>可以把一个二维向量看作是一个值，那么我想要实现的Vector2类型，便是类似于整形类型的值类型。</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>依据高中数学，我们可以很快写出如下代码：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Vector2</span>(<span class="params"><span class="keyword">float</span> x, <span class="keyword">float</span> y</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        X = x;</span><br><span class="line">        Y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> X &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Y &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过一个构造函数来初始化坐标。</p>
+<h2 id="重写ToString"><a href="#重写ToString" class="headerlink" title="重写ToString()"></a>重写ToString()</h2><p>现在的Vector2类型不过只是储存了数据，还无法输出到控制台，或者说无法变为一个有格式的字符串。<br>我们对一个二维向量，一般用$(x, y)$来表示坐标。<br>可以通过重写<code>ToString()</code>方法来实现其格式输出：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......	</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span> =&gt; <span class="string">$"(<span class="subst">&#123;X&#125;</span>,<span class="subst">&#123;Y&#125;</span>)"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样，便可以调用<code>Console.WriteLine()</code>打印一个Vector2类型的变量。</p>
+<h2 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h2><p>向量有几个基本属性：</p>
+<ul>
+<li>模；</li>
+<li>单位向量</li>
+</ul>
+<p>为类型添加如下代码：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Length &#123; <span class="keyword">get</span> =&gt; (<span class="keyword">float</span>)Math.Sqrt(X * X + Y * Y); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Up &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Down &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">-1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Left &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">-1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Right &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Zero &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这些属性在某些情况下很有用。</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>对于向量，我们一般只去判断是否相等。这里相等的条件不是数学意义上的相等，而是指坐标的严格相等。<br>可以考虑重载<code>Equals()</code>方法，不过在重载之前，可以考虑用元组来自建一个比较方法。<br>添加如下代码:</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 vector2</span>)</span> =&gt; (X, Y).Equals((vector2.X, vector2.Y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里使用元组的<code>Equals()</code>方法来比较，极大简化了代码量。<br>但在实际中，我们更常用<code>==</code>和<code>!=</code>来判断两者相等与否，这就需要重载运算符来实现。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> ==(Vector2 a, Vector2 b) =&gt; a.Equals(b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> !=(Vector2 a, Vector2 b) =&gt; !(a == b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用我们刚刚写好的<code>Equals()</code>可以方便的写出重载运算符。<br>这时编译器可能会提示，要求重载<code>Equals()</code>方法，所以我们不妨将其加上。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span> =&gt; Equals((Vector2)obj);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">GetHashCode</span>(<span class="params"></span>)</span> =&gt; (X, Y).GetHashCode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要重载<code>Equals()</code>方法，必须同时重载<code>GetHashCode()</code>方法。用元组可以轻松地重载后者。</p>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><p>向量可以实现一些基本运算。可以通过重载<code>+``-``*``/</code>来实现。<br>添加如下代码：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> +(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X + b.X, a.Y + b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> -(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X - b.X, a.Y - b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X * b.X, a.Y * b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X * b, a.Y * b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X / b.X, a.Y / b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X / b, a.Y / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样便实现了向量的基本运算。</p>
+<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>获取向量所代表的方向，需要将其端点移至原点，并将其模变作$1$。<br>为了实现这个功能，先将两个坐标用坐标中较小的一个的绝对值做除法，然后除以其模。<br>代码如下:</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="title">Normalize</span>(<span class="params">Vector2 vector</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Vector2 v = vector;</span><br><span class="line">        v /= Math.Max(Math.Abs(v.X), Math.Abs(v.Y));</span><br><span class="line">        v /= v.Length;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="整体代码"><a href="#整体代码" class="headerlink" title="整体代码"></a>整体代码</h1><p>全部代码如下：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Vector2</span>(<span class="params"><span class="keyword">float</span> x, <span class="keyword">float</span> y</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        X = x;</span><br><span class="line">        Y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> X &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Y &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Length &#123; <span class="keyword">get</span> =&gt; (<span class="keyword">float</span>)Math.Sqrt(X * X + Y * Y); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Up &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Down &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">-1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Left &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">-1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Right &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Zero &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">0</span>); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span> =&gt; Equals((Vector2)obj);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 vector2</span>)</span> =&gt; (X, Y).Equals((vector2.X, vector2.Y));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 a, Vector2 b</span>)</span> =&gt; a.Equals(b);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span> =&gt; <span class="string">$"(<span class="subst">&#123;X&#125;</span>,<span class="subst">&#123;Y&#125;</span>)"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">GetHashCode</span>(<span class="params"></span>)</span> =&gt; (X, Y).GetHashCode();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> ==(Vector2 a, Vector2 b) =&gt; a.Equals(b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> !=(Vector2 a, Vector2 b) =&gt; !(a == b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> +(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X + b.X, a.Y + b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> -(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X - b.X, a.Y - b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X * b.X, a.Y * b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X * b, a.Y * b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X / b.X, a.Y / b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X / b, a.Y / b);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="title">Normalize</span>(<span class="params">Vector2 vector</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Vector2 v = vector;</span><br><span class="line">        v /= Math.Max(Math.Abs(v.X), Math.Abs(v.Y));</span><br><span class="line">        v /= v.Length;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以通过加入更多有用的方法和属性，来使这个类型更加完善。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>值类型</tag>
+        <tag>向量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>埃氏筛法</title>
+    <url>/2019/10/18/prime-sieve/</url>
+    <content><![CDATA[<hr>
+<p>最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。</p>
+<hr>
+<a id="more"></a>
+<h1 id="埃氏筛法-sieve-of-Eratosthenes"><a href="#埃氏筛法-sieve-of-Eratosthenes" class="headerlink" title="埃氏筛法(sieve of Eratosthenes)"></a>埃氏筛法(sieve of Eratosthenes)</h1><p>埃氏筛法又称为素数筛，是一种求解小范围素数的有效方法。<br>具体步骤如下：</p>
+<ol>
+<li>输入一个$[2, n]$区间，保存在列表中。</li>
+<li>把列表中可以被$2$整除的数筛除。</li>
+<li>把列表中可以被${3 + 2m(m = 0, 1, 2…[\frac{n-3}{2}])}$整除的数筛除。</li>
+<li>获取$[2, n]$区间内的所有素数。</li>
+</ol>
+<p>总体来说，埃氏筛法是用空间换取了时间，时间复杂度为<script type="math/tex">{O(Nlog(logN))}</script>。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>C#实现代码如下：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;<span class="keyword">int</span>&gt; <span class="title">Sieve</span>(<span class="params"><span class="keyword">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;<span class="keyword">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        list.Add(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">            list.Add(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            list.Add(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; list.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (list[j] != i &amp;&amp; list[j] % i == <span class="number">0</span>)</span><br><span class="line">                list[j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码用$-1$标记删去的项，在调用该方法时，通过判断该值即可获取相应素数。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>算法</tag>
+        <tag>素数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C#中的ref和out</title>
+    <url>/2019/10/17/cs-ref-out/</url>
+    <content><![CDATA[<hr>
+<p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
+<hr>
+<a id="more"></a>
+<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>我们可以考虑这样一种情况。<br>在某次项目中，我们需要实现一个<code>Swap(int a, int b)</code>方法，用来交换两个整形变量的值。很显然，该方法必须有如下一种实现：</p>
+<ol>
+<li>一次返回两个值。</li>
+<li>直接修改两个变量。</li>
+</ol>
+<p>而我们知道，一般情况下，一个方法只能返回一个值。这种情况下，就需要用到<code>ref</code>了。<br>使用<code>ref</code>可以实现第二种方法，它会传递变量的引用给方法。<br>可以写出如下代码：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span> a, <span class="keyword">ref</span> <span class="keyword">int</span> b</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>Main</code>函数中调用：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    Swap(<span class="keyword">ref</span> a, <span class="keyword">ref</span> b);</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = 4, b = 3</span><br><span class="line">a = 3, b = 4</span><br></pre></td></tr></table></figure>
+<p>在调用方法时，实参也要带<code>ref</code>关键字，且所传递的变量必须初始化。</p>
+<h1 id="out"><a href="#out" class="headerlink" title="out"></a>out</h1><p>在上文中，我们提及了两种实现交换的方法，而<code>out</code>可以实现第一种方法。<br>可以改写<code>Swap</code>函数为：</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">out</span> <span class="keyword">int</span> c</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改写<code>Main</code>函数为：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其输出结果和使用<code>ref</code>输出相同。<br>在调用方法时，实参也要带<code>out</code>关键字，且所传递的变量必须在方法内初始化。</p>
+<blockquote>
+<p>在C#7.0以后可以在参数列表中声明<code>out</code>变量。7.0前必须在调用方法前先声明所需变量。</p>
+</blockquote>
+<h1 id="代替"><a href="#代替" class="headerlink" title="代替"></a>代替</h1><p>在C#7.0以后，可以用元组代替上述两个关键字。元组不仅更加便于理解，而且可读性比之后两者有了显著性的提高。<br>在需要返回多个值时，推荐优先考虑元组的实现。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>C#</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git常用命令</title>
+    <url>/2019/10/16/git-command/</url>
+    <content><![CDATA[<hr>
+<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
+<hr>
+<a id="more"></a>
+<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
+</blockquote>
+<h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
+<p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
+<p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
+<p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
+<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
+</blockquote>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
+<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
+<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要在主分支中使用此命令。</p>
+</blockquote>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
+<h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
+<ol>
+<li>克隆远程仓库(<code>$ git clone</code>)。</li>
+<li>文件操作。</li>
+<li>添加/更新修改过的文件到仓库中(<code>$ git add</code>)。</li>
+<li>提交修改(<code>$ git commit -m</code>)。</li>
+<li>上传(<code>$ git push</code>)。</li>
+</ol>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>git的命令远远不止这些，有些更加高级的用法会在今后学习。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>命令行</category>
+      </categories>
+      <tags>
+        <tag>命令行</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>杀手</title>
+    <url>/2019/10/16/killer/</url>
+    <content><![CDATA[<hr>
+<p>所谓的杀手，真的不需要感情吗……</p>
+<hr>
+<a id="more"></a>
+<blockquote>
+<p>声明：</p>
+<blockquote>
+<ul>
+<li>游戏之作，自娱自乐。</li>
+<li>如有雷同，纯属巧合。</li>
+<li>如果侵权，及时联系，马上删除。</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>“砰！”</p>
+<p>伴随着一声枪响，一个男子倒在血泊中。</p>
+<p>在这人身旁，少年默默收回了手枪。他面容清秀，能在脸上看到些许的稚嫩。</p>
+<p>他蹲下身，紧了紧右手手套，向那男子衣服中伸去。摸索片刻后，他的脸上露出了迷惑的表情。</p>
+<p>“……没有，为什么？”少年的声音很轻，没有变声期那种沙哑，反而有着鸟鸣般的清脆。</p>
+<p>他抽出手，缓缓起身。就在此刻，他的双耳突然抖动了两下。</p>
+<p>一阵细微的声响被他捕获，那是鞋子摩擦水泥地面的声音。</p>
+<p>他转过身，面向房门外。在昏暗的远方，一个人影浮现在他眼中。</p>
+<p>那是一个高大的男子，从头到脚，他的全身都被黑色覆盖。甚至连脸上，都蒙上了一层黑色的面罩。</p>
+<p>少年没有动，就只是看着他不断的逼近。</p>
+<p>鞋子摩擦地面的声音停止了。高大男子站在少年前方二三十米处，左手中不知何时已经握上了一把枪。</p>
+<p>“我……是被抛弃了吗？”少年开口了，那只能给无数人带来恐惧的手枪竟是丝毫没有影响到他。</p>
+<p>高大男子没有说话。他转了一圈左手中的手枪，他猛然抬起手，瞄准少年扣下了扳机。</p>
+<p>“砰”的一声，一颗子弹呼啸而过，直接贯穿了少年的肩膀。</p>
+<p>少年吃痛的叫了一声，脸上变得有些苍白。一把手枪从他右手处滑落，在地面上发出一声哀嚎。</p>
+<p>高大男子摇了摇头，终于开口道：“为什么不还击？”他的声音无比嘶哑，堪比金属摩擦之声。</p>
+<p>“我做不到。”少年左手摁着伤口，但血流还是如同小溪般沿着衣服流下。</p>
+<p>“愚蠢。”男子嗤笑一声，给手枪再次上膛，“得亏老子调教你五年，还是有这般幼稚的想法。”</p>
+<p>他再度瞄准，枪口遥指少年头颅，“记住，我们杀手，是不需要感情的。”话音刚落，他便扣动了扳机。</p>
+<p>少年瞳孔一缩，看着那不断逼近的子弹，身体竟是不自主的向一旁偏去。</p>
+<p>子弹擦着他的太阳穴而过，他顺势倒在地上，没了声响。</p>
+<p>高大男子静立了片刻，微不可查的点了下头。他收回那把冒着青烟的手枪，嘶哑的声音响起：“他已经死了。”</p>
+<p>拍手声响起。在他身后，一位身着白衣，留着白色长发的男子一边鼓掌，一边微笑道：“不愧是老板的得力干将‘孤狼’，就算是跟了自己五年之久的弟子，动起手来也是没有丝毫犹豫。”</p>
+<p>见孤狼没有回应的打算，这白发男子依旧微笑道：“不过孤狼啊，老板可是要让我亲眼见证‘白鹿’的死亡，所以他的身体，我也不得不仔细地瞧瞧了。”</p>
+<p>“你怀疑我没有杀了他？”孤狼嘶哑的声音响起。尽管有着面罩的遮挡，但白发男子还是感受到了一双透着凶光的眼睛。</p>
+<p>“哎呀呀，被‘狼’盯着，我可是浑身都不自在啊。”他口称不自在，但脸上的笑容依旧，“我可不会质疑你的实力，但……说不定呢？”</p>
+<p>他拨开刘海，大步向前走去，“这世间有太多不可能，我可不敢将老板的命令放在虚无缥缈的运气上。”</p>
+<p>盯着他的后背，孤狼左手按在了枪柄上。</p>
+<p>二三十米的距离，白发男子不过走了十秒左右。他俯视着倒在地上的白鹿，笑着对身后的人道：“孤狼，可不要让我们失望啊。”</p>
+<p>就在此时，躺在地上的白鹿突然睁开双眼，猛地伸手拉住白发男子的腿。与其身材不符的力量，直接让后者一个踉跄，跪倒在地上，白色的长发瞬间变得凌乱。</p>
+<p>紧接着便是一声枪响，黄色子弹从白发男子右手臂穿过，竟是刚好没有碰到白鹿的衣服。</p>
+<p>白发男子叹息一声，刚想有动作，便感觉太阳穴处传来的丝丝寒意。白鹿的手枪，此时正抵在他的命门上。</p>
+<p>“不要动。”白鹿的声音有点喘，负伤作战还是给他带来了不少影响。</p>
+<p>“哎……”身上仿佛流的不是自己的血，那白发男子竟是依旧挂着微笑，“你们啊，一个个的，为什么都走上这个道路了呢……”</p>
+<p>孤狼靠了过来，他瞥了眼白鹿，从兜里扔出一个药瓶，“吃了吧。”</p>
+<p>“哦。”白鹿应了一声，熟练地服下了两颗药片。</p>
+<p>“你们应该明白的，离开了我们就是死路一条。”白发男子看见这一幕，笑着说道，“这一次挺过去了，那么下一次呢，下下一次呢？”</p>
+<p>“你们会生不如死的。”他的声音依旧平稳，丝毫没有负伤者应有的状态。</p>
+<p>“总比你这种状态好吧。”白鹿的脸色由苍白转向红润，他的双眼变得更加的明亮，“至少，我有痛觉。”</p>
+<p>“痛觉？无用的东西。”白发男子笑了笑，“你这种异端就是我们的污点。”</p>
+<p>白鹿撇了撇嘴，看向沉默的孤狼道：“师傅，这家伙该怎么办，杀掉吗？”</p>
+<p>没等孤狼回答，白发男子又笑道：“孤狼啊孤狼，现在你还有机会，杀了白鹿，你依旧是我们的朋友。”</p>
+<p>“朋友？奴隶还差不多。”孤狼哼了一声，“杀了吧。”</p>
+<p>“嗯。”白鹿扣动扳机，直接将白发男子的头打爆。</p>
+<p>拍了拍身子，白鹿站起来，仰着头看着孤狼问道：“师傅，异端是什么意思？”</p>
+<p>“凡是不符合那人心意的，就是异端。”孤狼嘿了一声。他踏过无头尸体，走向房间内那倒在血泊里的男子。</p>
+<p>“是他吗……”孤狼面罩下的双眼微微眯起，“竟然舍得用这家伙做诱饵，看来那人对‘零’很是重视啊……”</p>
+<p>他转过身，看着那包扎伤口的白鹿，自言自语道：“你可是托付给我了一个大麻烦啊，前辈。”</p>
+<hr>
+]]></content>
+      <categories>
+        <category>随便写写</category>
+      </categories>
+      <tags>
+        <tag>小说</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MarkDown常用内容</title>
     <url>/2019/10/15/markdown/</url>
     <content><![CDATA[<hr>
@@ -474,232 +823,6 @@
       </tags>
   </entry>
   <entry>
-    <title>C#元组</title>
-    <url>/2019/10/24/cs-tuple/</url>
-    <content><![CDATA[<hr>
-<p>元组(Tuple)早就在C#中出现过，但直到7.0后，其才能真正发挥应有的作用。<br>这里的元组，便是指C#7.0以后的元组。</p>
-<hr>
-<a id="more"></a>
-<h1 id="何谓元组"><a href="#何谓元组" class="headerlink" title="何谓元组"></a>何谓元组</h1><p>元组，从名字可以看出，是一堆数据的“组”。这些数据可能会有内在的联系，所以被分在一个组内，便于统一管理。<br>不妨考虑下面这个例子。<br>程序中，我们需要储存某些个人信息，那么可以用如下变量来表示：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name;</span><br><span class="line"><span class="keyword">string</span> job;</span><br><span class="line"><span class="keyword">string</span> country;</span><br><span class="line">Sex sex;</span><br><span class="line"><span class="keyword">int</span> age;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>这写起来很繁琐，而且这些数据无法直接体现其内在联系。不妨看看用元组会是什么样子：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br></pre></td></tr></table></figure>
-<p>甚至可以再度简写为：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure>
-<p>这样，便可以通过一个变量<code>people</code>来获取相应数据。</p>
-<h1 id="元组使用"><a href="#元组使用" class="headerlink" title="元组使用"></a>元组使用</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>元组的声明有多种方式，下面我只写出我常用的几种。</p>
-<p><strong>用元组类型声明</strong>。</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">string</span> name, <span class="keyword">string</span> job, <span class="keyword">string</span> country, Sex sex, <span class="keyword">int</span> age) people;</span><br><span class="line">(<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) people;</span><br></pre></td></tr></table></figure>
-<p><strong>用Var类型声明</strong>。</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> people = (Name: <span class="string">"Jack"</span>, Job: <span class="string">"ASAF A level Number"</span>, Country: <span class="string">"USA"</span>, Gender: Sex.Male, Age: <span class="number">33</span>);</span><br><span class="line"><span class="keyword">var</span> people = (<span class="string">"Jack"</span>, <span class="string">"ASAF A level Number"</span>, <span class="string">"USA"</span>, Sex.Male, <span class="number">33</span>);</span><br></pre></td></tr></table></figure>
-<p>其中上面两种中，第一个都是<strong>具名元组</strong>。</p>
-<h2 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h2><p>元组的调用和类很像，可以把其中的数据看作元组的成员。<br>无论是否为<strong>具名元组</strong>，都可以用如下方法调用：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Item1;</span><br><span class="line"><span class="keyword">string</span> job = people.Item2;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>若是<strong>具名元组</strong>，还可以用对应的名字获取数据。</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> name = people.Name;</span><br><span class="line"><span class="keyword">string</span> job = people.Job;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>推荐用<strong>PascalCase</strong>命名法命名元组每一项的名字。</p>
-</blockquote>
-<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>元组其中一个重要应用便是作为返回值，可以一次返回多个不同的数据。<br>看如下的例子：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> (<span class="keyword">string</span>, <span class="keyword">string</span>, <span class="keyword">string</span>, Sex, <span class="keyword">int</span>) GetPeopleInformation()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">string</span> name;</span><br><span class="line">    <span class="keyword">string</span> job;</span><br><span class="line">    <span class="keyword">string</span> country;</span><br><span class="line">    Sex sex;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取输入</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (name, job, country, sex, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样便实现了多个值的返回。<br>相比于使用大量的<code>out</code>，元组显然更加优越。</p>
-<h1 id="元组的其他应用"><a href="#元组的其他应用" class="headerlink" title="元组的其他应用"></a>元组的其他应用</h1><p>元组因为其特殊的构造，在C#中有很为广泛的应用。<br>比如我<a href="http://zhangbbsday.github.io/2019/10/20/vector2-struct/">上一篇</a> 中，便是用元组的<code>Equals</code>方法作为Vector2类<code>Equals</code>方法的判断。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>C#</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>元组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>构建Vector2类型</title>
-    <url>/2019/10/20/vector2-struct/</url>
-    <content><![CDATA[<hr>
-<p>在大多数游戏引擎中，都会实现Vector类型，包括但不限于Vector2、Vector3等等。<br>出于好奇，加之想练习值类型的应用，我打算自己实现Vector2类型。</p>
-<hr>
-<a id="more"></a>
-<h1 id="C-的值类型和引用类型"><a href="#C-的值类型和引用类型" class="headerlink" title="C#的值类型和引用类型"></a>C#的值类型和引用类型</h1><p>在C#里，数据类型有两种：值类型和引用类型。<br>具体来讲，值类型的数据是指储存在栈里的。每一个值类型直接包含值，修改一个已经有值的值类型，会创建一个新的值类型。<br>引用类型的数据是储存在堆里的。每一个已初始化的引用类型都包含一个指向数据的地址，相当于是C语言里的<strong>指针</strong>。若是有两个引用类型引用同一个对象，修改其中一个数据，都会使另一个数据发生变化。<br>常见的值类型有：</p>
-<ul>
-<li>整形类型；</li>
-<li>浮点类型；</li>
-<li>布尔类型</li>
-</ul>
-<p>常见的引用类型有：</p>
-<ul>
-<li>字符串类型;</li>
-<li>class</li>
-</ul>
-<h1 id="Vector2类型的构建"><a href="#Vector2类型的构建" class="headerlink" title="Vector2类型的构建"></a>Vector2类型的构建</h1><p>可以把一个二维向量看作是一个值，那么我想要实现的Vector2类型，便是类似于整形类型的值类型。</p>
-<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>依据高中数学，我们可以很快写出如下代码：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Vector2</span>(<span class="params"><span class="keyword">float</span> x, <span class="keyword">float</span> y</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        X = x;</span><br><span class="line">        Y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> X &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Y &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过一个构造函数来初始化坐标。</p>
-<h2 id="重写ToString"><a href="#重写ToString" class="headerlink" title="重写ToString()"></a>重写ToString()</h2><p>现在的Vector2类型不过只是储存了数据，还无法输出到控制台，或者说无法变为一个有格式的字符串。<br>我们对一个二维向量，一般用$(x, y)$来表示坐标。<br>可以通过重写<code>ToString()</code>方法来实现其格式输出：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......	</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span> =&gt; <span class="string">$"(<span class="subst">&#123;X&#125;</span>,<span class="subst">&#123;Y&#125;</span>)"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样，便可以调用<code>Console.WriteLine()</code>打印一个Vector2类型的变量。</p>
-<h2 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h2><p>向量有几个基本属性：</p>
-<ul>
-<li>模；</li>
-<li>单位向量</li>
-</ul>
-<p>为类型添加如下代码：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Length &#123; <span class="keyword">get</span> =&gt; (<span class="keyword">float</span>)Math.Sqrt(X * X + Y * Y); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Up &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Down &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">-1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Left &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">-1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Right &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Zero &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">0</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这些属性在某些情况下很有用。</p>
-<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>对于向量，我们一般只去判断是否相等。这里相等的条件不是数学意义上的相等，而是指坐标的严格相等。<br>可以考虑重载<code>Equals()</code>方法，不过在重载之前，可以考虑用元组来自建一个比较方法。<br>添加如下代码:</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 vector2</span>)</span> =&gt; (X, Y).Equals((vector2.X, vector2.Y));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里使用元组的<code>Equals()</code>方法来比较，极大简化了代码量。<br>但在实际中，我们更常用<code>==</code>和<code>!=</code>来判断两者相等与否，这就需要重载运算符来实现。</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> ==(Vector2 a, Vector2 b) =&gt; a.Equals(b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> !=(Vector2 a, Vector2 b) =&gt; !(a == b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>利用我们刚刚写好的<code>Equals()</code>可以方便的写出重载运算符。<br>这时编译器可能会提示，要求重载<code>Equals()</code>方法，所以我们不妨将其加上。</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span> =&gt; Equals((Vector2)obj);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">GetHashCode</span>(<span class="params"></span>)</span> =&gt; (X, Y).GetHashCode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>要重载<code>Equals()</code>方法，必须同时重载<code>GetHashCode()</code>方法。用元组可以轻松地重载后者。</p>
-<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><p>向量可以实现一些基本运算。可以通过重载<code>+``-``*``/</code>来实现。<br>添加如下代码：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> +(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X + b.X, a.Y + b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> -(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X - b.X, a.Y - b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X * b.X, a.Y * b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X * b, a.Y * b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X / b.X, a.Y / b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X / b, a.Y / b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样便实现了向量的基本运算。</p>
-<h2 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h2><p>获取向量所代表的方向，需要将其端点移至原点，并将其模变作$1$。<br>为了实现这个功能，先将两个坐标用坐标中较小的一个的绝对值做除法，然后除以其模。<br>代码如下:</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="title">Normalize</span>(<span class="params">Vector2 vector</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Vector2 v = vector;</span><br><span class="line">        v /= Math.Max(Math.Abs(v.X), Math.Abs(v.Y));</span><br><span class="line">        v /= v.Length;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="整体代码"><a href="#整体代码" class="headerlink" title="整体代码"></a>整体代码</h1><p>全部代码如下：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> Vector2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Vector2</span>(<span class="params"><span class="keyword">float</span> x, <span class="keyword">float</span> y</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        X = x;</span><br><span class="line">        Y = y;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> X &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Y &#123; <span class="keyword">get</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> Length &#123; <span class="keyword">get</span> =&gt; (<span class="keyword">float</span>)Math.Sqrt(X * X + Y * Y); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Up &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Down &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">-1f</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Left &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">-1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Right &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">1f</span>, <span class="number">0</span>); &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 Zero &#123; <span class="keyword">get</span> =&gt; <span class="keyword">new</span> Vector2(<span class="number">0</span>, <span class="number">0</span>); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params"><span class="keyword">object</span> obj</span>)</span> =&gt; Equals((Vector2)obj);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 vector2</span>)</span> =&gt; (X, Y).Equals((vector2.X, vector2.Y));</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">Equals</span>(<span class="params">Vector2 a, Vector2 b</span>)</span> =&gt; a.Equals(b);</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">ToString</span>(<span class="params"></span>)</span> =&gt; <span class="string">$"(<span class="subst">&#123;X&#125;</span>,<span class="subst">&#123;Y&#125;</span>)"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">GetHashCode</span>(<span class="params"></span>)</span> =&gt; (X, Y).GetHashCode();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> ==(Vector2 a, Vector2 b) =&gt; a.Equals(b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">bool</span> <span class="keyword">operator</span> !=(Vector2 a, Vector2 b) =&gt; !(a == b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> +(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X + b.X, a.Y + b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> -(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X - b.X, a.Y - b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X * b.X, a.Y * b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> *(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X * b, a.Y * b);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, Vector2 b) =&gt; <span class="keyword">new</span> Vector2(a.X / b.X, a.Y / b.Y);</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="keyword">operator</span> /(Vector2 a, <span class="keyword">float</span> b) =&gt; <span class="keyword">new</span> Vector2(a.X / b, a.Y / b);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Vector2 <span class="title">Normalize</span>(<span class="params">Vector2 vector</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Vector2 v = vector;</span><br><span class="line">        v /= Math.Max(Math.Abs(v.X), Math.Abs(v.Y));</span><br><span class="line">        v /= v.Length;</span><br><span class="line">        <span class="keyword">return</span> v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以通过加入更多有用的方法和属性，来使这个类型更加完善。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>值类型</tag>
-        <tag>向量</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>埃氏筛法</title>
-    <url>/2019/10/18/prime-sieve/</url>
-    <content><![CDATA[<hr>
-<p>最近C程刚好讲到素数的求法，在实现了基础的方法后，我也学习了埃氏筛法，打算记录下来，以备不时之需。</p>
-<hr>
-<a id="more"></a>
-<h1 id="埃氏筛法-sieve-of-Eratosthenes"><a href="#埃氏筛法-sieve-of-Eratosthenes" class="headerlink" title="埃氏筛法(sieve of Eratosthenes)"></a>埃氏筛法(sieve of Eratosthenes)</h1><p>埃氏筛法又称为素数筛，是一种求解小范围素数的有效方法。<br>具体步骤如下：</p>
-<ol>
-<li>输入一个$[2, n]$区间，保存在列表中。</li>
-<li>把列表中可以被$2$整除的数筛除。</li>
-<li>把列表中可以被${3 + 2m(m = 0, 1, 2…[\frac{n-3}{2}])}$整除的数筛除。</li>
-<li>获取$[2, n]$区间内的所有素数。</li>
-</ol>
-<p>总体来说，埃氏筛法是用空间换取了时间，时间复杂度为<script type="math/tex">{O(Nlog(logN))}</script>。</p>
-<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><p>C#实现代码如下：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> List&lt;<span class="keyword">int</span>&gt; <span class="title">Sieve</span>(<span class="params"><span class="keyword">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List&lt;<span class="keyword">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="keyword">int</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        list.Add(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>)</span><br><span class="line">            list.Add(i);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            list.Add(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; list.Count; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (list[j] != i &amp;&amp; list[j] % i == <span class="number">0</span>)</span><br><span class="line">                list[j] = <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码用$-1$标记删去的项，在调用该方法时，通过判断该值即可获取相应素数。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>算法</tag>
-        <tag>素数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git常用命令</title>
-    <url>/2019/10/16/git-command/</url>
-    <content><![CDATA[<hr>
-<p>git是一种常用的版本控制软件，在团队协作中发挥着重要作用。不仅可以在本地建立仓库，也可以在诸如GitHub等网站建立远程仓库。<br>下面会写写一些常用的git命令，能够满足<strong>普通程度</strong>的需要。</p>
-<hr>
-<a id="more"></a>
-<h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="克隆"><a href="#克隆" class="headerlink" title="克隆"></a>克隆</h2><p>通过克隆GitHub远程仓库，可以方便的在本地进行编辑修改，并随时上传。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone &lt;repositories&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>我一般是用网站创建新仓库，再把其克隆到本地进行修改，最后上传。</p>
-</blockquote>
-<h2 id="添加-更新"><a href="#添加-更新" class="headerlink" title="添加/更新"></a>添加/更新</h2><p>添加/更新修改过的文件到仓库中。<br><strong>命令一</strong>：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add &lt;file name&gt;</span><br></pre></td></tr></table></figure>
-<p>也可以一次操作多个文件。<br><strong>命令二</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add .</span><br></pre></td></tr></table></figure>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><p>提交修改到仓库，同时标注提交信息。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -m &apos;message&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>查看仓库状态，可以用来确认操作是否正确。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git status</span><br></pre></td></tr></table></figure>
-<p>如果在<code>$ git add</code>后, 会有如下类似显示:</p>
-<p><img src="https://i.loli.net/2019/10/16/JSOhzW1XbFVarlD.png" alt="image.png"></p>
-<p>如果在<code>$ git commit -m &#39;message&#39;</code>后, 会有如下类似显示:<br><img src="https://i.loli.net/2019/10/16/G1IudRgMmitAJEH.png" alt="image.png"></p>
-<h2 id="上传"><a href="#上传" class="headerlink" title="上传"></a>上传</h2><p>上传本地仓库到远程仓库中，如GitHub等。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git push</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果用克隆，就用上述命令即可。若是在用新建分支上传，需要用<code>$ git push --set-upstream origin other</code>确定分支，再进行上传。</p>
-</blockquote>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支据说是git有别于其他版本管理软件的关键因素，目前我还没怎么用过，相信以后会有所体会。</p>
-<h3 id="查看分支"><a href="#查看分支" class="headerlink" title="查看分支"></a>查看分支</h3><p>可以查看各个分支，同时显示目前所在分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance</span><br></pre></td></tr></table></figure>
-<h3 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h3><p>可以新建一个分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance &lt;new brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h3><p>可以删除一个分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git brance -d &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p>可以切换目前所在分支。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git checkout &lt;brance name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>可以合并分支到主分支中，是多人协作的关键。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git merge &lt;other brance&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>需要在主分支中使用此命令。</p>
-</blockquote>
-<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>根据我个人理解，是将本地仓库和远程仓库同步。<br><strong>命令</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git pull</span><br></pre></td></tr></table></figure>
-<h1 id="常用流程"><a href="#常用流程" class="headerlink" title="常用流程"></a>常用流程</h1><p>下面是我使用git的常用流程。</p>
-<ol>
-<li>克隆远程仓库(<code>$ git clone</code>)。</li>
-<li>文件操作。</li>
-<li>添加/更新修改过的文件到仓库中(<code>$ git add</code>)。</li>
-<li>提交修改(<code>$ git commit -m</code>)。</li>
-<li>上传(<code>$ git push</code>)。</li>
-</ol>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>git的命令远远不止这些，有些更加高级的用法会在今后学习。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>命令行</category>
-      </categories>
-      <tags>
-        <tag>命令行</tag>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C#中的ref和out</title>
-    <url>/2019/10/17/cs-ref-out/</url>
-    <content><![CDATA[<hr>
-<p>终于可以开始写有关C#的内容了，这次先记录下C#中的两个关键字<code>ref</code> <code>out</code>的使用。<br>在C#7.0以后，可以用更加方便的元组代替二者。</p>
-<hr>
-<a id="more"></a>
-<h1 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h1><p>我们可以考虑这样一种情况。<br>在某次项目中，我们需要实现一个<code>Swap(int a, int b)</code>方法，用来交换两个整形变量的值。很显然，该方法必须有如下一种实现：</p>
-<ol>
-<li>一次返回两个值。</li>
-<li>直接修改两个变量。</li>
-</ol>
-<p>而我们知道，一般情况下，一个方法只能返回一个值。这种情况下，就需要用到<code>ref</code>了。<br>使用<code>ref</code>可以实现第二种方法，它会传递变量的引用给方法。<br>可以写出如下代码：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span> a, <span class="keyword">ref</span> <span class="keyword">int</span> b</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    b = c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在<code>Main</code>函数中调用：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    Swap(<span class="keyword">ref</span> a, <span class="keyword">ref</span> b);</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = 4, b = 3</span><br><span class="line">a = 3, b = 4</span><br></pre></td></tr></table></figure>
-<p>在调用方法时，实参也要带<code>ref</code>关键字，且所传递的变量必须初始化。</p>
-<h1 id="out"><a href="#out" class="headerlink" title="out"></a>out</h1><p>在上文中，我们提及了两种实现交换的方法，而<code>out</code>可以实现第一种方法。<br>可以改写<code>Swap</code>函数为：</p>
-<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Swap</span>(<span class="params"><span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">out</span> <span class="keyword">int</span> c</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    c = a;</span><br><span class="line">    a = b;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>改写<code>Main</code>函数为：<br><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">    a = Swap(a, b, <span class="keyword">out</span> <span class="keyword">int</span> c);</span><br><span class="line">    b = c;</span><br><span class="line">    Console.WriteLine(<span class="string">$"a = <span class="subst">&#123;a&#125;</span>, b = <span class="subst">&#123;b&#125;</span>"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>其输出结果和使用<code>ref</code>输出相同。<br>在调用方法时，实参也要带<code>out</code>关键字，且所传递的变量必须在方法内初始化。</p>
-<blockquote>
-<p>在C#7.0以后可以在参数列表中声明<code>out</code>变量。7.0前必须在调用方法前先声明所需变量。</p>
-</blockquote>
-<h1 id="代替"><a href="#代替" class="headerlink" title="代替"></a>代替</h1><p>在C#7.0以后，可以用元组代替上述两个关键字。元组不仅更加便于理解，而且可读性比之后两者有了显著性的提高。<br>在需要返回多个值时，推荐优先考虑元组的实现。</p>
-<hr>
-]]></content>
-      <categories>
-        <category>C#</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>hexo常用命令</title>
     <url>/2019/10/14/hexo-command/</url>
     <content><![CDATA[<hr>
@@ -724,80 +847,6 @@
       <tags>
         <tag>hexo</tag>
         <tag>命令行</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>杀手</title>
-    <url>/2019/10/16/killer/</url>
-    <content><![CDATA[<hr>
-<p>所谓的杀手，真的不需要感情吗……</p>
-<hr>
-<a id="more"></a>
-<blockquote>
-<p>声明：</p>
-<blockquote>
-<ul>
-<li>游戏之作，自娱自乐。</li>
-<li>如有雷同，纯属巧合。</li>
-<li>如果侵权，及时联系，马上删除。</li>
-</ul>
-</blockquote>
-</blockquote>
-<p>“砰！”</p>
-<p>伴随着一声枪响，一个男子倒在血泊中。</p>
-<p>在这人身旁，少年默默收回了手枪。他面容清秀，能在脸上看到些许的稚嫩。</p>
-<p>他蹲下身，紧了紧右手手套，向那男子衣服中伸去。摸索片刻后，他的脸上露出了迷惑的表情。</p>
-<p>“……没有，为什么？”少年的声音很轻，没有变声期那种沙哑，反而有着鸟鸣般的清脆。</p>
-<p>他抽出手，缓缓起身。就在此刻，他的双耳突然抖动了两下。</p>
-<p>一阵细微的声响被他捕获，那是鞋子摩擦水泥地面的声音。</p>
-<p>他转过身，面向房门外。在昏暗的远方，一个人影浮现在他眼中。</p>
-<p>那是一个高大的男子，从头到脚，他的全身都被黑色覆盖。甚至连脸上，都蒙上了一层黑色的面罩。</p>
-<p>少年没有动，就只是看着他不断的逼近。</p>
-<p>鞋子摩擦地面的声音停止了。高大男子站在少年前方二三十米处，左手中不知何时已经握上了一把枪。</p>
-<p>“我……是被抛弃了吗？”少年开口了，那只能给无数人带来恐惧的手枪竟是丝毫没有影响到他。</p>
-<p>高大男子没有说话。他转了一圈左手中的手枪，他猛然抬起手，瞄准少年扣下了扳机。</p>
-<p>“砰”的一声，一颗子弹呼啸而过，直接贯穿了少年的肩膀。</p>
-<p>少年吃痛的叫了一声，脸上变得有些苍白。一把手枪从他右手处滑落，在地面上发出一声哀嚎。</p>
-<p>高大男子摇了摇头，终于开口道：“为什么不还击？”他的声音无比嘶哑，堪比金属摩擦之声。</p>
-<p>“我做不到。”少年左手摁着伤口，但血流还是如同小溪般沿着衣服流下。</p>
-<p>“愚蠢。”男子嗤笑一声，给手枪再次上膛，“得亏老子调教你五年，还是有这般幼稚的想法。”</p>
-<p>他再度瞄准，枪口遥指少年头颅，“记住，我们杀手，是不需要感情的。”话音刚落，他便扣动了扳机。</p>
-<p>少年瞳孔一缩，看着那不断逼近的子弹，身体竟是不自主的向一旁偏去。</p>
-<p>子弹擦着他的太阳穴而过，他顺势倒在地上，没了声响。</p>
-<p>高大男子静立了片刻，微不可查的点了下头。他收回那把冒着青烟的手枪，嘶哑的声音响起：“他已经死了。”</p>
-<p>拍手声响起。在他身后，一位身着白衣，留着白色长发的男子一边鼓掌，一边微笑道：“不愧是老板的得力干将‘孤狼’，就算是跟了自己五年之久的弟子，动起手来也是没有丝毫犹豫。”</p>
-<p>见孤狼没有回应的打算，这白发男子依旧微笑道：“不过孤狼啊，老板可是要让我亲眼见证‘白鹿’的死亡，所以他的身体，我也不得不仔细地瞧瞧了。”</p>
-<p>“你怀疑我没有杀了他？”孤狼嘶哑的声音响起。尽管有着面罩的遮挡，但白发男子还是感受到了一双透着凶光的眼睛。</p>
-<p>“哎呀呀，被‘狼’盯着，我可是浑身都不自在啊。”他口称不自在，但脸上的笑容依旧，“我可不会质疑你的实力，但……说不定呢？”</p>
-<p>他拨开刘海，大步向前走去，“这世间有太多不可能，我可不敢将老板的命令放在虚无缥缈的运气上。”</p>
-<p>盯着他的后背，孤狼左手按在了枪柄上。</p>
-<p>二三十米的距离，白发男子不过走了十秒左右。他俯视着倒在地上的白鹿，笑着对身后的人道：“孤狼，可不要让我们失望啊。”</p>
-<p>就在此时，躺在地上的白鹿突然睁开双眼，猛地伸手拉住白发男子的腿。与其身材不符的力量，直接让后者一个踉跄，跪倒在地上，白色的长发瞬间变得凌乱。</p>
-<p>紧接着便是一声枪响，黄色子弹从白发男子右手臂穿过，竟是刚好没有碰到白鹿的衣服。</p>
-<p>白发男子叹息一声，刚想有动作，便感觉太阳穴处传来的丝丝寒意。白鹿的手枪，此时正抵在他的命门上。</p>
-<p>“不要动。”白鹿的声音有点喘，负伤作战还是给他带来了不少影响。</p>
-<p>“哎……”身上仿佛流的不是自己的血，那白发男子竟是依旧挂着微笑，“你们啊，一个个的，为什么都走上这个道路了呢……”</p>
-<p>孤狼靠了过来，他瞥了眼白鹿，从兜里扔出一个药瓶，“吃了吧。”</p>
-<p>“哦。”白鹿应了一声，熟练地服下了两颗药片。</p>
-<p>“你们应该明白的，离开了我们就是死路一条。”白发男子看见这一幕，笑着说道，“这一次挺过去了，那么下一次呢，下下一次呢？”</p>
-<p>“你们会生不如死的。”他的声音依旧平稳，丝毫没有负伤者应有的状态。</p>
-<p>“总比你这种状态好吧。”白鹿的脸色由苍白转向红润，他的双眼变得更加的明亮，“至少，我有痛觉。”</p>
-<p>“痛觉？无用的东西。”白发男子笑了笑，“你这种异端就是我们的污点。”</p>
-<p>白鹿撇了撇嘴，看向沉默的孤狼道：“师傅，这家伙该怎么办，杀掉吗？”</p>
-<p>没等孤狼回答，白发男子又笑道：“孤狼啊孤狼，现在你还有机会，杀了白鹿，你依旧是我们的朋友。”</p>
-<p>“朋友？奴隶还差不多。”孤狼哼了一声，“杀了吧。”</p>
-<p>“嗯。”白鹿扣动扳机，直接将白发男子的头打爆。</p>
-<p>拍了拍身子，白鹿站起来，仰着头看着孤狼问道：“师傅，异端是什么意思？”</p>
-<p>“凡是不符合那人心意的，就是异端。”孤狼嘿了一声。他踏过无头尸体，走向房间内那倒在血泊里的男子。</p>
-<p>“是他吗……”孤狼面罩下的双眼微微眯起，“竟然舍得用这家伙做诱饵，看来那人对‘零’很是重视啊……”</p>
-<p>他转过身，看着那包扎伤口的白鹿，自言自语道：“你可是托付给我了一个大麻烦啊，前辈。”</p>
-<hr>
-]]></content>
-      <categories>
-        <category>随便写写</category>
-      </categories>
-      <tags>
-        <tag>小说</tag>
       </tags>
   </entry>
 </search>
