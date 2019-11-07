@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangbbsday.github.io/"/>
-  <updated>2019-11-07T11:39:46.148Z</updated>
+  <updated>2019-11-07T11:41:16.265Z</updated>
   <id>http://zhangbbsday.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://zhangbbsday.github.io/2019/11/07/canvas-group/"/>
     <id>http://zhangbbsday.github.io/2019/11/07/canvas-group/</id>
     <published>2019-11-07T11:28:10.000Z</published>
-    <updated>2019-11-07T11:39:46.148Z</updated>
+    <updated>2019-11-07T11:41:16.265Z</updated>
     
     <content type="html"><![CDATA[<hr><p>Unity 内置有 UI 物体，可以很方便的构建游戏交互界面。有时候，为了做出某些效果，需要整体调整 UI 物体的透明度。<br>Unity 提供了一个组件，可以整体调整 UI 透明度。</p><hr><a id="more"></a><h1 id="CanvasGroup"><a href="#CanvasGroup" class="headerlink" title="CanvasGroup"></a>CanvasGroup</h1><p>Unity 内置了一个<code>CanvasGroup</code>组件，用于调整<code>Canvas</code>下一个物体和其所有子物体的透明度、射线遮挡等功能。<br>因为其提供了<code>alpha</code>属性，所以可以用来整体调整 UI 物体的透明度。<br>具体使用方法略过。</p><h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>在我自制游戏<code>FlappyBird</code>中，为了实现标题的淡入淡出、死亡闪屏及转场黑幕，必须同时对多个物体透明度进行修改。<br>在原来的方式中，需要用一个列表存储所有需要修改的对象，然后一个个进行修改。<br>但在使用了<code>CanvasGroup</code>后，事情变得十分简单了。</p><hr>]]></content>
     
@@ -36,8 +36,6 @@
     
       <category term="Unity" scheme="http://zhangbbsday.github.io/categories/Unity/"/>
     
-    
-      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
     
       <category term="Unity" scheme="http://zhangbbsday.github.io/tags/Unity/"/>
     
@@ -64,9 +62,9 @@
       <category term="Unity" scheme="http://zhangbbsday.github.io/categories/Unity/"/>
     
     
-      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
-    
       <category term="Unity" scheme="http://zhangbbsday.github.io/tags/Unity/"/>
+    
+      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
     
       <category term="CSV" scheme="http://zhangbbsday.github.io/tags/CSV/"/>
     

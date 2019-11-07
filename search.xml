@@ -15,7 +15,6 @@
         <category>Unity</category>
       </categories>
       <tags>
-        <tag>C#</tag>
         <tag>Unity</tag>
       </tags>
   </entry>
@@ -59,8 +58,8 @@
         <category>Unity</category>
       </categories>
       <tags>
-        <tag>C#</tag>
         <tag>Unity</tag>
+        <tag>C#</tag>
         <tag>CSV</tag>
         <tag>IO</tag>
       </tags>
