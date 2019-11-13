@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Boyer-Moore字符串查找</title>
+    <url>/2019/11/13/boyer-moore/</url>
+    <content><![CDATA[<hr>
+<p>字符串查找一直是编程的重点内容。前文我介绍了正则表达式的应用，然而在实际中，最为广泛应用的是一个叫做 Boyer-Moore 的字符串查找算法。</p>
+<hr>
+<a id="more"></a>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>这算法的来历我就不讲了，有兴趣的自己百度。<br>其被广泛应用于各大文本编辑器内，如：</p>
+<p><img src="https://i.loli.net/2019/11/13/yknIHasTeK8XOUc.png" alt="image.png"></p>
+<p>由此可见该种算法的普适和高效。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>Boyer-Moore 算法和普通匹配字符串的方式不同，它用了更为巧妙的变化，使得匹配次数大大缩减。</p>
+<h2 id="匹配方向"><a href="#匹配方向" class="headerlink" title="匹配方向"></a>匹配方向</h2><p>Boyer-Moore算法 采取从后往前匹配的规则。<br>如下图所示，从匹配字符串的最后一个字符开始向前匹配。</p>
+<p><img src="https://i.loli.net/2019/11/13/DtOlcmzkrWMPI6E.png" alt="1.png"></p>
+<h2 id="坏字符规则"><a href="#坏字符规则" class="headerlink" title="坏字符规则"></a>坏字符规则</h2><p>我们发现 <strong>S</strong> 和 <strong>E</strong> 无法匹配，且 <strong>S</strong> 并不存在于 <strong>EXAMPLE</strong> 内。所以将整个匹配字符串向前移动 <strong>7</strong> 个单位。<br>可以称 <strong>S</strong> 为所谓<strong>坏字符</strong>。</p>
+<p><img src="https://i.loli.net/2019/11/13/hWpySO9zMKibUeE.png" alt="2.png"></p>
+<p>随后继续上述过程，发现 <strong>P</strong> 和 <strong>E</strong> 无法匹配。但此时 <strong>P</strong> 存在于 <strong>EXAMPLE</strong> 内，所以将两个 <strong>P</strong> 对齐。</p>
+<p><img src="https://i.loli.net/2019/11/13/AeZQvoCiRuPL528.png" alt="3.png"></p>
+<p>通过上边两次移动，我们可以发现一个事实：<br><strong>匹配字符串移动距离 = 坏字符匹配位置 - 第一次坏字符出现位置。</strong></p>
+<blockquote>
+<p>当匹配字符串内不存在坏字符，令值为 <strong>-1</strong> 。</p>
+</blockquote>
+<p>利用上述公式，可以计算出移动的位置：</p>
+<p>第一次移动距离为：$Length1 = 6 - (-1) = 7$<br>第二次移动距离为：$Length2 = 6 - 4 = 2$<br>上述公式就是所谓坏字符规则。</p>
+<h2 id="好后缀规则"><a href="#好后缀规则" class="headerlink" title="好后缀规则"></a>好后缀规则</h2><p>继续匹配，此时可以发现 <strong>MPLE</strong> 均已经匹配。若是用坏字符规则，会移动 <strong>3</strong> 个单位。<br>其中 <strong>MPLE</strong> 被称作<strong>好后缀</strong>。</p>
+<p><img src="https://i.loli.net/2019/11/13/klf2ceBumLv9Yqn.png" alt="4.png"></p>
+<p>但此时还有更好的移动方式，可以直接移动 <strong>6</strong> 个单位。<br>这里用到了好后缀规则。类似于坏字符规则，其公式为:<br><strong>匹配字符串移动距离 = 好后缀匹配位置 - 匹配字符串头部好后缀出现的位置。</strong></p>
+<blockquote>
+<p>当匹配字符串头部不存在好后缀时，令其值为 <strong>-1</strong> 。</p>
+</blockquote>
+<p>如下图，<strong>E</strong> 就是计算用的好后缀。</p>
+<p><img src="https://i.loli.net/2019/11/13/j9KathuUsDgOFiy.png" alt="5.png"></p>
+<p>利用上述公式，可以计算出移动的位置：$Length = 6 - 0 = 6$</p>
+<p><img src="https://i.loli.net/2019/11/13/I34fX1WxMtuVk7O.png" alt="8.png"></p>
+<p>然后用坏字符规则，便可匹配字符串。</p>
+<p><img src="https://i.loli.net/2019/11/13/oBlULQSMct1D7fF.png" alt="7.png"></p>
+<h2 id="综合规则"><a href="#综合规则" class="headerlink" title="综合规则"></a>综合规则</h2><p>两大规则为 Boyer-Moore 算法提供了匹配的依据。为了达成最高效的匹配，必须尽可能的减少匹配次数。<br>故匹配字符串每次实际移动距离为:<br>$Length = Max\{\ BadChar(\ ),\ GoodSuffix(\ )\ \} $。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>具体实现代码如下</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">BoyerMooreMatch</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">static</span> (<span class="params"><span class="keyword">int</span> Start, <span class="keyword">int</span> End</span>) <span class="title">Match</span>(<span class="params"><span class="keyword">string</span> str, <span class="keyword">string</span> pattern</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">int</span> index = pattern.Length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> indexReturn = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">string</span> suffix;</span><br><span class="line">        <span class="keyword">char</span> badChar = <span class="string">'\0'</span>;</span><br><span class="line">        <span class="keyword">int</span> badCharIndex = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; str.Length)</span><br><span class="line">        &#123;</span><br><span class="line">            suffix = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = pattern.Length - <span class="number">1</span>, j = index; i &gt;= <span class="number">0</span>; i--, j--)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (str[j] == pattern[i])</span><br><span class="line">                    suffix += pattern[i];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    badChar = str[j];</span><br><span class="line">                    badCharIndex = i;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            suffix = FlipString(suffix);</span><br><span class="line">            <span class="keyword">if</span> (suffix == pattern)</span><br><span class="line">            &#123;</span><br><span class="line">                indexReturn = index;</span><br><span class="line">                <span class="keyword">if</span> (suffix.Length &gt; <span class="number">1</span>)</span><br><span class="line">                    indexReturn -= suffix.Length - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (suffix.Length != <span class="number">0</span>)</span><br><span class="line">                index += Math.Max(GetBadCharNumber(pattern, badCharIndex, badChar), GetGoodSuffixNum(pattern, suffix));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                index += GetBadCharNumber(pattern, badCharIndex, badChar);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (indexReturn, index);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">GetBadCharNumber</span>(<span class="params"><span class="keyword">string</span> pattern, <span class="keyword">int</span> index, <span class="keyword">char</span> c</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> end = index;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = end - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (pattern[i] == c)</span><br><span class="line">            &#123;</span><br><span class="line">                start = i;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> end - start;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">GetGoodSuffixNum</span>(<span class="params"><span class="keyword">string</span> pattern, <span class="keyword">string</span> suffix</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> end = pattern.Length - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = suffix.Length - <span class="number">1</span>, j = <span class="number">0</span>; i &gt;= <span class="number">0</span>; i--, j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (pattern[j] != suffix[i])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> end - start;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">string</span> <span class="title">FlipString</span>(<span class="params"><span class="keyword">string</span> str</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">char</span>[] chars = str.ToCharArray();</span><br><span class="line">        Array.Reverse(chars);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">string</span>(chars);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>利用元组，可以返回匹配区间。</p>
+</blockquote>
+<hr>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>字符串</tag>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>整体修改UI物体透明度</title>
     <url>/2019/11/07/canvas-group/</url>
     <content><![CDATA[<hr>
@@ -58,8 +110,8 @@
         <category>Unity</category>
       </categories>
       <tags>
-        <tag>Unity</tag>
         <tag>C#</tag>
+        <tag>Unity</tag>
         <tag>CSV</tag>
         <tag>IO</tag>
       </tags>
@@ -370,8 +422,8 @@
         <category>C#</category>
       </categories>
       <tags>
-        <tag>C#</tag>
         <tag>字符串</tag>
+        <tag>C#</tag>
         <tag>正则表达式</tag>
       </tags>
   </entry>
@@ -497,8 +549,8 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>C#</tag>
         <tag>算法</tag>
+        <tag>C#</tag>
         <tag>素数</tag>
       </tags>
   </entry>
@@ -597,8 +649,8 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>命令行</tag>
         <tag>git</tag>
+        <tag>命令行</tag>
       </tags>
   </entry>
   <entry>
@@ -863,8 +915,8 @@
         <category>命令行</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>命令行</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
