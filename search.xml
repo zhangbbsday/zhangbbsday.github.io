@@ -47,9 +47,9 @@
         <category>算法</category>
       </categories>
       <tags>
+        <tag>C#</tag>
         <tag>算法</tag>
         <tag>字符串</tag>
-        <tag>C#</tag>
       </tags>
   </entry>
   <entry>
@@ -421,8 +421,8 @@
         <category>C#</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>C#</tag>
+        <tag>字符串</tag>
         <tag>正则表达式</tag>
       </tags>
   </entry>
@@ -548,8 +548,8 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>C#</tag>
+        <tag>算法</tag>
         <tag>素数</tag>
       </tags>
   </entry>
