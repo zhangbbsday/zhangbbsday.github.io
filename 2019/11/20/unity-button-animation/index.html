@@ -56,17 +56,19 @@
   };
 </script>
 
-  <meta name="description" content="编程、小说、游戏……The World">
-<meta property="og:type" content="website">
-<meta property="og:title" content="The World">
-<meta property="og:url" content="http://zhangbbsday.github.io/tags/元组/index.html">
+  <meta name="description" content="在制作新游戏愤怒的小鸟时，我遇见了按钮被选中后，动画无法正常播放的问题。后来得到解决，特在此记录，以作备忘。">
+<meta name="keywords" content="Unity,C#,UI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity按钮动画问题">
+<meta property="og:url" content="http://zhangbbsday.github.io/2019/11/20/unity-button-animation/index.html">
 <meta property="og:site_name" content="The World">
-<meta property="og:description" content="编程、小说、游戏……The World">
+<meta property="og:description" content="在制作新游戏愤怒的小鸟时，我遇见了按钮被选中后，动画无法正常播放的问题。后来得到解决，特在此记录，以作备忘。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-20T00:39:08.345Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The World">
-<meta name="twitter:description" content="编程、小说、游戏……The World">
-  <link rel="canonical" href="http://zhangbbsday.github.io/tags/元组/">
+<meta name="twitter:title" content="Unity按钮动画问题">
+<meta name="twitter:description" content="在制作新游戏愤怒的小鸟时，我遇见了按钮被选中后，动画无法正常播放的问题。后来得到解决，特在此记录，以作备忘。">
+  <link rel="canonical" href="http://zhangbbsday.github.io/2019/11/20/unity-button-animation/">
 
 
 <script id="page-configurations">
@@ -74,13 +76,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: 元组 | The World</title>
+  <title>Unity按钮动画问题 | The World</title>
   
 
 
@@ -268,82 +270,181 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">元组
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhangbbsday.github.io/2019/11/20/unity-button-animation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="火提昂">
+      <meta itemprop="description" content="编程、小说、游戏……The World">
+      <meta itemprop="image" content="/images/head.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The World">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            Unity按钮动画问题
+            
+
+          
         </h2>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-20 08:04:19 / 修改时间：08:39:08" itemprop="dateCreated datePublished" datetime="2019-11-20T08:04:19+08:00">2019-11-20</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>509</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<p>在制作新游戏愤怒的小鸟时，我遇见了按钮被选中后，动画无法正常播放的问题。<br>后来得到解决，特在此记录，以作备忘。</p>
+<hr>
+<a id="more"></a>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>Unity 中使用 GUI 作为其 UI 界面，其中包括了很多有用的预制物体。按钮（Button）便是其中之一。<br>原版游戏中，每当玩家鼠标进入按钮时，按钮便会放大，已表明其被选中。当按下后，该按钮仍然可以触发上述效果。<br>为了实现这种功能，我尝试使用 Button 中的 Animation ，试图通过动画来控制其缩放。<br>然而这样就遇到了问题。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>Unity 中的 UI 物体，继承于<code>Selectable</code>类。顾名思义，该类说明该物体可以被选中。<br>当按钮被选中后，动画机会自动切换到 Select 。这时若是想再次使其放大，必须先取消对该按钮的选择（通过点击空白区域或是其他可被选中的 UI 物体）。<br>这就使得我无法做出和原版按钮一样的效果。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><blockquote>
+<p>但万事皆有解决之法。</p>
+</blockquote>
+<p>我一开始试图用取消选择的方式解决问题，但很可惜的是，我并没有找到取消选择的有效方法。<br>后来，我猜测是由于导航（Navigation）的缘故。这个导航，可以自动生成 UI 之间的切换路径，当用键盘操作时，可以顺着预设路径选择不同 UI 。<br>事实证明，这的确是导航的问题。通过把导航关闭，问题得到解决。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+	<div>
+		
+			<div>
+    
+        <div style="text-align:center;color: #555;font-size:20px;">-------------End-------------</div>
+    
+</div>
+		
+	</div>
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>火提昂
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://zhangbbsday.github.io/2019/11/20/unity-button-animation/" title="Unity按钮动画问题">http://zhangbbsday.github.io/2019/11/20/unity-button-animation/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
 
       
 
-  
-  
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+            
+              <a href="/tags/C/" rel="tag"># C#</a>
+            
+              <a href="/tags/UI/" rel="tag"># UI</a>
+            
+          </div>
+        
 
-  
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/11/13/boyer-moore/" rel="next" title="Boyer-Moore字符串查找">
+                  <i class="fa fa-chevron-left"></i> Boyer-Moore字符串查找
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
     
-    <div class="collection-year">
-      <h2 class="collection-header">2019</h2>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-24T11:36:37+08:00"
-              content="2019-10-24">
-          10-24
-        </time>
-      </div>
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/24/cs-tuple/" itemprop="url">
-            <span itemprop="name">C#元组</span>
-          </a>
-        
-      </h3>
-
-    </header>
   </article>
+  
+  
+  
 
-
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -360,6 +461,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -372,6 +478,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
