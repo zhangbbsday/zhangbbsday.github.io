@@ -20,7 +20,6 @@
       </categories>
       <tags>
         <tag>Unity</tag>
-        <tag>C#</tag>
         <tag>UI</tag>
       </tags>
   </entry>
@@ -134,8 +133,8 @@
         <category>Unity</category>
       </categories>
       <tags>
-        <tag>Unity</tag>
         <tag>C#</tag>
+        <tag>Unity</tag>
         <tag>IO</tag>
       </tags>
   </entry>

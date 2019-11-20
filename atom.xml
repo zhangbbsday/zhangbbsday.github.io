@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://zhangbbsday.github.io/"/>
-  <updated>2019-11-20T00:39:08.345Z</updated>
+  <updated>2019-11-20T00:52:11.570Z</updated>
   <id>http://zhangbbsday.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://zhangbbsday.github.io/2019/11/20/unity-button-animation/"/>
     <id>http://zhangbbsday.github.io/2019/11/20/unity-button-animation/</id>
     <published>2019-11-20T00:04:19.000Z</published>
-    <updated>2019-11-20T00:39:08.345Z</updated>
+    <updated>2019-11-20T00:52:11.570Z</updated>
     
     <content type="html"><![CDATA[<hr><p>在制作新游戏愤怒的小鸟时，我遇见了按钮被选中后，动画无法正常播放的问题。<br>后来得到解决，特在此记录，以作备忘。</p><hr><a id="more"></a><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>Unity 中使用 GUI 作为其 UI 界面，其中包括了很多有用的预制物体。按钮（Button）便是其中之一。<br>原版游戏中，每当玩家鼠标进入按钮时，按钮便会放大，已表明其被选中。当按下后，该按钮仍然可以触发上述效果。<br>为了实现这种功能，我尝试使用 Button 中的 Animation ，试图通过动画来控制其缩放。<br>然而这样就遇到了问题。</p><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>Unity 中的 UI 物体，继承于<code>Selectable</code>类。顾名思义，该类说明该物体可以被选中。<br>当按钮被选中后，动画机会自动切换到 Select 。这时若是想再次使其放大，必须先取消对该按钮的选择（通过点击空白区域或是其他可被选中的 UI 物体）。<br>这就使得我无法做出和原版按钮一样的效果。</p><h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><blockquote><p>但万事皆有解决之法。</p></blockquote><p>我一开始试图用取消选择的方式解决问题，但很可惜的是，我并没有找到取消选择的有效方法。<br>后来，我猜测是由于导航（Navigation）的缘故。这个导航，可以自动生成 UI 之间的切换路径，当用键盘操作时，可以顺着预设路径选择不同 UI 。<br>事实证明，这的确是导航的问题。通过把导航关闭，问题得到解决。</p><hr>]]></content>
     
@@ -38,8 +38,6 @@
     
     
       <category term="Unity" scheme="http://zhangbbsday.github.io/tags/Unity/"/>
-    
-      <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
     
       <category term="UI" scheme="http://zhangbbsday.github.io/tags/UI/"/>
     
@@ -120,9 +118,9 @@
       <category term="Unity" scheme="http://zhangbbsday.github.io/categories/Unity/"/>
     
     
-      <category term="Unity" scheme="http://zhangbbsday.github.io/tags/Unity/"/>
-    
       <category term="C#" scheme="http://zhangbbsday.github.io/tags/C/"/>
+    
+      <category term="Unity" scheme="http://zhangbbsday.github.io/tags/Unity/"/>
     
       <category term="IO" scheme="http://zhangbbsday.github.io/tags/IO/"/>
     
